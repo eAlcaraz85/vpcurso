@@ -1,0 +1,170 @@
+#+TITLE: Visión por Computadora 
+#+author: Eduardo Alcaraz
+#+email: eduardo.ac@morelia.tecnm.mx
+
+
+* ¿Que es la visión por computadora?
+
+La visión por computadora es un campo de la inteligencia artificial asociado al análisis de imágenes y vídeos, que incluye un conjunto de técnicas que otorgan a la computadora la capacidad de *ver* y extraer información de aquello que se ha visto.
+
+Los sistemas se componen de una cámara fotográfica o de vídeo y un software especializado que identifica y clasifica objetos. Son capaces de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así como caras y emociones.
+
+Para enseñar a una computadora a *ver*, se utilizan tecnologías de aprendizaje automático y se recopilan muchos datos que permiten resaltar características y combinaciones de las mismas para identificar aún más objetos similares.
+
+* Visión por computadora
+#+startup: inlineimages
+#+ATTR_LATEX: :width 0.3\textwidth
+[[file:~/Dropbox/org/cursos/img/im1.jpg]]
+
+
+* Aspectos Claves de la visión por computadora 
+
+ - *Procesamiento de Imágenes*: Involucra técnicas para mejorar imágenes digitales, extraer información útil, realizar ajustes como corrección de color, reducción de ruido, y más.
+
+ - *Reconocimiento de Patrones*: Se refiere a la identificación de patrones, formas y características en las imágenes. Esto puede incluir el reconocimiento de rostros, objetos, escenas, gestos, etc.
+
+ - *Segmentación de Imágenes*: Se trata de dividir una imagen en  diferentes partes o segmentos, a menudo para aislar regiones o elementos de interés.
+
+ - *Detección y Seguimiento de Objetos*: Implica identificar y seguir objetos a lo largo del tiempo en una serie de imágenes o vídeos.
+
+ - *Reconstrucción 3D*: Consiste en crear representaciones tridimensionales de un objeto o escena a partir de imágenes bidimensionales.
+
+ - *Visión Artificial en Robótica*: Aplicación de la visión por computadora en robots para la navegación, manipulación de objetos y otras tareas.
+
+ - *Interpretación de Escenas*: Comprende el análisis de escenas completas en términos de identificación de objetos, su disposición espacial, interacciones, y el contexto general.
+
+La visión por computadora se utiliza en una variedad de aplicaciones, que van desde la seguridad y vigilancia hasta la medicina, pasando por
+los vehículos autónomos, la inspección industrial, la gestión de contenido digital y la interacción hombre-máquina. Este campo se
+beneficia enormemente de los avances en el aprendizaje automático y el aprendizaje profundo, permitiendo el desarrollo de sistemas más
+precisos y eficientes para el análisis visual.
+
+
+* Tecnologías y Herramientas
+  - Lenguajes de Programación: Python, C++, C.
+  - Bibliotecas y Frameworks: OpenCV, TensorFlow, PyTorch.
+
+**   Instalación Python Opencv
+
+
+*** Instalación python Opencv Windows
+	
+
+
+*** Instalación python Opencv Mac 
+
+*** Instalación python Opencv Linux
+
+
+
+Instalar Python 3 y OpenCV en un sistema Linux generalmente es un proceso sencillo. A continuación, te presento los pasos genéricos para la mayoría de las distribuciones de Linux. Ten en cuenta que estos pasos pueden variar ligeramente dependiendo de la distribución específica que estés utilizando (como Ubuntu, Fedora, etc.).
+
+- *Instalar Python 3*
+
+La mayoría de las distribuciones modernas de Linux ya vienen con Python 3 instalado. Puedes verificar si Python 3 está instalado y su versión usando el siguiente comando en la terminal:
+
+#+BEGIN_SRC shell
+python3 --version
+#+END_SRC
+
+Si Python 3 no está instalado o deseas una versión más reciente, puedes instalarlo a través del gestor de paquetes de tu distribución:
+
+- *En distribuciones basadas en Debian (como Ubuntu):*
+
+  #+BEGIN_SRC shell
+sudo apt update
+sudo apt install python3
+#+END_SRC
+
+- *En distribuciones basadas en Red Hat (como Fedora):*
+
+#+BEGIN_SRC shell
+ sudo dnf install python3
+#+END_SRC
+
+- *Instalar pip (Gestor de Paquetes de Python)*
+
+*pip* es el gestor de paquetes para Python y se utiliza para instalar paquetes de Python como OpenCV. Puedes instalar `pip` con el siguiente comando:
+
+- *En Ubuntu y otras distribuciones basadas en Debian:*
+
+#+BEGIN_SRC bash
+ sudo apt install python3-pip
+#+END_SRC
+ 
+- En Fedora y distribuciones basadas en Red Hat:
+
+  sudo dnf install python3-pip
+
+
+- *Instalar OpenCV*
+
+Una vez que tengas Python 3 y pip instalados, puedes instalar OpenCV. El paquete `opencv-python` proporciona enlaces a las bibliotecas de OpenCV y es el método más fácil de instalar OpenCV para Python. Ejecuta el siguiente comando:
+
+```bash
+pip3 install opencv-python
+```
+
+Si necesitas los módulos adicionales (que incluyen algoritmos patentados), puedes instalar `opencv-contrib-python`:
+
+```bash
+pip3 install opencv-contrib-python
+```
+
+### Verificar la Instalación
+
+Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguiente:
+
+1. Abre una terminal y escribe `python3` para entrar en el intérprete interactivo de Python.
+
+2. En el intérprete, escribe:
+
+   ```python
+   import cv2
+   print(cv2.__version__)
+   ```
+
+   Si no hay errores y se muestra la versión de OpenCV, significa que la instalación fue exitosa.
+
+### Notas Adicionales
+
+- Si estás trabajando en un entorno de desarrollo profesional o experimental, es una buena práctica usar entornos virtuales para gestionar las dependencias de Python. Puedes usar herramientas como `venv` o `conda` para crear entornos virtuales.
+
+- Asegúrate de que tu sistema esté actualizado antes de comenzar la instalación.
+
+- Los pasos exactos pueden variar ligeramente dependiendo de la versión y el tipo de tu distribución de Linux. 
+
+
+
+* Aplicaciones de la Visión por Computadora
+  - Reconocimiento Facial: Uso en seguridad y dispositivos móviles.
+  - Vehículos Autónomos: Navegación y detección de obstáculos.
+  - Análisis Médico de Imágenes: Aplicación en diagnóstico y análisis.
+
+* Desafíos y Consideraciones Éticas
+  - Desafíos Técnicos: Precisión, grandes conjuntos de datos, computación intensiva.
+  - Cuestiones de Privacidad: Preocupaciones sobre reconocimiento facial y vigilancia.
+  - Futuro de la Visión por Computadora: Impacto en la sociedad y desarrollo continuo.
+
+* Conclusión y Futuro de la Visión por Computadora
+  - Resumen: Repaso de los puntos clave.
+  - Futuras Tendencias: Inteligencia artificial, aprendizaje profundo.
+  - Preguntas y Discusión: Invitación a participar.
+
+* Referencias y Recursos Adicionales
+  - Libros y Artículos: Lista de lecturas recomendadas.
+  - Recursos en Línea: Enlaces a tutoriales, cursos y documentación.
+
+
+
+* Programación 
+
+* Cargar imagen 
+
+ #+BEGIN_SRC python :results output
+import cv2 as cv 
+img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
+cv.imshow('ejemplo', img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+ #+END_SRC
+ #+RESULTS:
