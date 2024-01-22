@@ -243,9 +243,10 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
 ** Programación 
 *** Cargar imagen 
 
+
    #+BEGIN_SRC python :results output
 import cv2 as cv 
-img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
+img = cv.imread('/home/likcos/Imágenes/tr.png', 0)
 cv.imshow('ejemplo', img)
 cv.waitKey(0)
 cv.destroyAllWindows()
@@ -289,6 +290,7 @@ cv.destroyAllWindows()
 
 
 *** Vídeo
+
 
  #+BEGIN_SRC python :results output
 
