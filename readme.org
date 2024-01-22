@@ -14,7 +14,7 @@ Para enseñar a una computadora a *ver*, se utilizan tecnologías de aprendizaje
 * Visión por computadora
 #+startup: inlineimages
 #+ATTR_LATEX: :width 0.3\textwidth
-[[file:~/Dropbox/org/cursos/img/im1.jpg]]
+[[file:img/im1.jpg]]
 
 
 * Aspectos Claves de la visión por computadora 
