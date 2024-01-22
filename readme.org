@@ -39,6 +39,14 @@ beneficia enormemente de los avances en el aprendizaje automático y el aprendiz
 precisos y eficientes para el análisis visual.
 
 
+* Libros de Visión por Computadora 
+- Geometría de Vistas Múltiples en Visión por Computadora *Richard Hartley*
+- Visión por Computadora Modelos, Aprendizaje e Inferencia *Simon J. D. Prince*
+- Visión por Computadora Un Enfoque Moderno *David A. Forsyth*
+- Aprendizaje Profundo Práctico para la Nube, Móvil y Edge Proyectos Reales de IA y Visión por Computadora Usando Python, Keras y TensorFlow *Anirudh Koul*
+- Aprendiendo OpenCV 4 Visión por Computadora con Python 3 Entiende las herramientas, técnicas y algoritmos para la visión por computadora y el aprendizaje automático *Joseph Howse*
+
+
 * Tecnologías y Herramientas
   - Lenguajes de Programación: Python, C++, C.
   - Bibliotecas y Frameworks: OpenCV, TensorFlow, PyTorch.
@@ -47,6 +55,7 @@ precisos y eficientes para el análisis visual.
 
 
 *** Instalación python Opencv Windows
+
 
 - *Paso 1: Instalar Python 3*
    - Python se puede descargar desde la página oficial: [[https://www.python.org/downloads/][Python Downloads]].
@@ -242,10 +251,39 @@ cv.waitKey(0)
 cv.destroyAllWindows()
    #+END_SRC
    #+RESULTS:
+*** Modelos de Color
+   #+BEGIN_SRC python :results output
+import cv2 as cv 
+img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
+cv.imshow('ejemplo', img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+   #+END_SRC
 
 
 
+*** Canales de color
+#+BEGIN_SRC python :results output
+import cv2 as cv
+import numpy as np 
+img = cv.imread('img/tr.png')
+img2 = np.zeros(img.shape[:2], dtype=np.uint8)
+print(img.shape[1])
+b,g,r =cv.split(img)
+rb=cv.merge([b,img2,img2])
+cv.imshow('img', img)
+#cv.imshow('img2',img2)
+cv.imshow('b',rb)
+cv.imshow('g',g)
+cv.imshow('r',r)
+cv.waitKey(0)
+cv.destroyAllWindows()
 
+
+#+END_SRC
+
+#+RESULTS:
+: 635
 
 
 * Desafíos y Consideraciones Éticas
