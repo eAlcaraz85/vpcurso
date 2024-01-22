@@ -47,14 +47,104 @@ precisos y eficientes para el análisis visual.
 
 
 *** Instalación python Opencv Windows
+
+- *Paso 1: Instalar Python 3*
+   - Python se puede descargar desde la página oficial: [[https://www.python.org/downloads/][Python Downloads]].
+   - Asegúrate de marcar la opción "Add Python 3.x to PATH" durante la instalación.
+
+- *Paso 2: Verificar la Instalación de Python*
+   - Abre la Terminal de Comandos (Command Prompt) y ejecuta:
+     #+BEGIN_SRC bash
+     python --version
+     #+END_SRC
+   - Esto debería mostrar la versión de Python instalada.
+
+- *Paso 3: Actualizar pip (Gestor de Paquetes de Python)*
+   - En la Terminal de Comandos, ejecuta:
+     #+BEGIN_SRC bash
+     python -m pip install --upgrade pip
+     #+END_SRC
+
+- *Paso 4: Instalar OpenCV*
+   - Utiliza pip para instalar OpenCV. En la Terminal de Comandos, ejecuta:
+     #+BEGIN_SRC bash
+     pip install opencv-python
+     #+END_SRC
+   - Si necesitas las funcionalidades adicionales de OpenCV, instala también opencv-contrib-python:
+     #+BEGIN_SRC bash
+     pip install opencv-contrib-python
+     #+END_SRC
+
+- *Paso 5: Verificar la Instalación de OpenCV*
+   - Para verificar que OpenCV está instalado, abre un intérprete de Python y ejecuta:
+     #+BEGIN_SRC python
+     import cv2
+     print(cv2.__version__)
+     #+END_SRC
+   - Si se muestra la versión de OpenCV sin errores, la instalación fue exitosa.
+
+- *Notas Finales*
+   - Es recomendable reiniciar el sistema después de instalar Python para asegurar que todos los cambios de configuración se apliquen correctamente.
+   - Puede ser útil trabajar en un entorno virtual para proyectos de Python para gestionar las dependencias de manera más eficiente.
+
 	
 
 
 *** Instalación python Opencv Mac 
 
+Instalar Python 3 y OpenCV en macOS es un proceso bastante sencillo. A
+continuación, se muestran los pasos para realizar esta instalación.
+
+- *Paso 1: Instalar Python 3*
+macOS viene con Python 2.7 instalado por defecto, pero se recomienda usar Python 3 para proyectos nuevos.
+
+   #+BEGIN_SRC bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   brew install python3
+   #+END_SRC
+   Verificar la versión de Python:
+   #+BEGIN_SRC bash
+   python3 --version
+   #+END_SRC
+
+- *Paso 2: Instalar pip*
+   pip es el gestor de paquetes de Python y generalmente viene instalado con Python 3.
+   Verificar si pip está instalado:
+   #+BEGIN_SRC bash
+   pip3 --version
+   #+END_SRC
+   Si pip no está instalado:
+   #+BEGIN_SRC bash
+   sudo easy_install pip
+   #+END_SRC
+
+- *Paso 3: Instalar OpenCV*
+   Puedes instalar OpenCV para Python utilizando pip.
+   Instalación básica:
+   #+BEGIN_SRC bash
+   pip3 install opencv-python
+   #+END_SRC
+   Instalar con funcionalidades adicionales:
+   #+BEGIN_SRC bash
+   pip3 install opencv-contrib-python
+   #+END_SRC
+
+- *Paso 4: Verificar la Instalación de OpenCV*
+   Para comprobar que OpenCV esté correctamente instalado:
+   #+BEGIN_SRC python
+   import cv2
+   print(cv2.__version__)
+   #+END_SRC
+
+- *Notas Finales*
+  - Es una buena práctica trabajar en un entorno virtual para proyectos de Python.
+  - Asegúrate de que tu sistema macOS esté actualizado.
+
+
+
+
+
 *** Instalación python Opencv Linux
-
-
 
 Instalar Python 3 y OpenCV en un sistema Linux generalmente es un proceso sencillo. A continuación, te presento los pasos genéricos para la mayoría de las distribuciones de Linux. Ten en cuenta que estos pasos pueden variar ligeramente dependiendo de la distribución específica que estés utilizando (como Ubuntu, Fedora, etc.).
 
@@ -141,6 +231,23 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
   - Vehículos Autónomos: Navegación y detección de obstáculos.
   - Análisis Médico de Imágenes: Aplicación en diagnóstico y análisis.
 
+** Programación 
+*** Cargar imagen 
+
+   #+BEGIN_SRC python :results output
+import cv2 as cv 
+img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
+cv.imshow('ejemplo', img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+   #+END_SRC
+   #+RESULTS:
+
+
+
+
+
+
 * Desafíos y Consideraciones Éticas
   - Desafíos Técnicos: Precisión, grandes conjuntos de datos, computación intensiva.
   - Cuestiones de Privacidad: Preocupaciones sobre reconocimiento facial y vigilancia.
@@ -151,21 +258,4 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
   - Futuras Tendencias: Inteligencia artificial, aprendizaje profundo.
   - Preguntas y Discusión: Invitación a participar.
 
-* Referencias y Recursos Adicionales
-  - Libros y Artículos: Lista de lecturas recomendadas.
-  - Recursos en Línea: Enlaces a tutoriales, cursos y documentación.
 
-
-
-* Programación 
-
-* Cargar imagen 
-
- #+BEGIN_SRC python :results output
-import cv2 as cv 
-img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
-cv.imshow('ejemplo', img)
-cv.waitKey(0)
-cv.destroyAllWindows()
- #+END_SRC
- #+RESULTS:
