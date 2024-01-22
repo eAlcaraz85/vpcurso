@@ -100,17 +100,17 @@ sudo apt install python3
 
 Una vez que tengas Python 3 y pip instalados, puedes instalar OpenCV. El paquete `opencv-python` proporciona enlaces a las bibliotecas de OpenCV y es el método más fácil de instalar OpenCV para Python. Ejecuta el siguiente comando:
 
-```bash
+#+BEGIN_SRC bash
 pip3 install opencv-python
-```
+#+END_SRC
 
 Si necesitas los módulos adicionales (que incluyen algoritmos patentados), puedes instalar `opencv-contrib-python`:
 
-```bash
+#+BEGIN_SRC bash
 pip3 install opencv-contrib-python
-```
+#+END_SRC
 
-### Verificar la Instalación
+- *Verificar la Instalación*
 
 Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguiente:
 
@@ -118,20 +118,21 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
 
 2. En el intérprete, escribe:
 
-   ```python
-   import cv2
-   print(cv2.__version__)
-   ```
-
+#+BEGIN_SRC python
+ import cv2
+ print(cv2.__version__)
+  
+#+END_SRC
+ 
    Si no hay errores y se muestra la versión de OpenCV, significa que la instalación fue exitosa.
 
-### Notas Adicionales
+- *Notas Adicionales*
 
-- Si estás trabajando en un entorno de desarrollo profesional o experimental, es una buena práctica usar entornos virtuales para gestionar las dependencias de Python. Puedes usar herramientas como `venv` o `conda` para crear entornos virtuales.
+   - Si estás trabajando en un entorno de desarrollo profesional o experimental, es una buena práctica usar entornos virtuales para gestionar las dependencias de Python. Puedes usar herramientas como `venv` o `conda` para crear entornos virtuales.
 
-- Asegúrate de que tu sistema esté actualizado antes de comenzar la instalación.
+   - Asegúrate de que tu sistema esté actualizado antes de comenzar la instalación.
 
-- Los pasos exactos pueden variar ligeramente dependiendo de la versión y el tipo de tu distribución de Linux. 
+   - Los pasos exactos pueden variar ligeramente dependiendo de la versión y el tipo de tu distribución de Linux. 
 
 
 
