@@ -322,11 +322,343 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
+*** Transformaciones Geométricas 
+
+**** Transformaciones Afín 
+  La transformación afín es una transformación geométrica que esta
+  constituida por translación, escalamiento, rotación y
+  cizallamiento. Cada una de estas Transformaciones es una
+  Transformación afín. 
+
+**** Traslación 
+ Una translación la podemos hacer simplemente asumiendo que nuevas
+ coordenadas $\hat{x} = x + t_x  \hat{y} = y + t_y$ les sumamos un valor
+ $t_x$ p t_y según corresponda. En coordenadas homogéneas queda como 
+
+ \begin{equation}
+ \begin{pmatrix}
+ \hat{x}\\
+ \hat{y}&\\
+ 1
+
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+ 1 & 0& t_x\\
+ 0 & 1 & t_y&\\
+ 0 & 0 & 1
+ \end{pmatrix}
+ \begin{pmatrix}
+ x\\
+ y&\\
+ 1
+ \end{pmatrix}
+
+
+ \end{equation}
+
+ #+BEGIN_SRC python
+import cv2 as cv
+import numpy as np
+img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
+h,w = img.shape[:2]
+img2 = np.zeros((h*2, w*2, 1) , dtype = "uint8")
+print("Valores " + str(img.shape[:2]))
+for i in range(h):
+    for j in range(w):
+        img2[int(i*0.5),int(j*0.5)]=img[i,j]
+
+cv.imshow('imagen', img)
+cv.imshow('imagen2', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+ #+END_SRC
+  
+
+ #+RESULTS:
+ : None
+
+
+**** Escalamiento 
+	 El escalamiento puede entenderse como hacer una figura geométrica
+	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
+	 podemos representar por como $\hat{x}$ = x s_x$ y en y como
+	 $\hat{y}$ = y s_y En coordenada homogéneas se puede expresar como 
+
+ \begin{equation}
+ \begin{pmatrix}
+ \hat{x}\\
+ \hat{y}&\\
+ 1
+
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+ s_x & 0& 0\\
+ 0 & s_y & 0&\\
+ 0 & 0 & 1
+ \end{pmatrix}
+ \begin{pmatrix}
+ x\\
+ y&\\
+ 1
+ \end{pmatrix}
+
+
+ \end{equation}
+	
+ #+BEGIN_SRC python :results output
+import cv2 as cv
+import numpy as np
+img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
+h,w = img.shape[:2]
+print(h, w)
+img2 = np.zeros((h*2, w*2) , dtype = "uint8")
+print("Valores " + str(img.shape[:2]))
+for i in range(h):
+    for j in range(w):
+        img2[int(i*2),int(j*2)]=img[i,j]
+
+cv.imshow('imagen', img)
+cv.imshow('imagen2', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+ #+END_SRC
+
+ #+RESULTS:
+ : 441 524
+ : Valores (441, 524)
+
+**** Rotación 
+
+ Considerando el caso de un punto que rota respecto a un punto
+ fijo. Las coordenadas x y y, en forma polar las podemos obtener como x=r 
+ $cos(\theta) y y = r sen(\theta)$. Si consideramos que esta gira un ángulo $\theta$    
+ entonces podemos representar esta rotación en forma polar. 
+ 
+ \begin{equation}
+ \begin{pmatrix}
+ \hat{x}\\
+ \hat{y}&
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+ r cos(\alpha + \theta)\\
+ r sen(\alpha + \theta)
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+ r cos(\alpha + \theta) - r sin(\alpha) sin(\theta) \\
+ r sen(\alpha + \theta) + r sin(\alpha) con(\theta)
+ \end{pmatrix}
+ \end{equation}
+
+
+ \begin{equation}
+ \begin{pmatrix}
+ \hat{x}\\
+ \hat{y}&
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+ x cos(\theta) - y sin(\theta) \\
+ x sen(\theta) + y cos(\theta)
+ \end{pmatrix}
+ \end{equation}
+
+
+ \begin{equation}
+ \begin{pmatrix}
+ \hat{x}\\
+ \hat{y}&
+ \end{pmatrix}
+ = 
+ \begin{pmatrix}
+  cos(\theta) &-  sin(\theta) \\
+  sen(\theta) &  cos(\theta)
+ \end{pmatrix}
+ \begin{pmatrix}
+ x \\
+ y 
+ \end{pmatrix}
+
+ \end{equation}
+
+ \begin{equation}
+ xcos(\theta) - ysin(\theta), xsen(\theta) + ycos(\theta)
+ \end{equation}
+
+ #+BEGIN_SRC python :results output
+import cv2 as cv
+import math
+import numpy as np 
+
+img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
+h,w = img.shape[:2]
+img2 = np.zeros((h*3, w*3), dtype = "uint8")
+for i in range(h):
+    for j in range(w):
+        img2[int(i*math.cos(math.radians(30))-j*math.sin(math.radians(30)))+200,
+             int(i*(math.sin(math.radians(30)))+j*math.cos(math.radians(30)))+50]=img[i,j]
+cv.imshow('imagen1', img)
+cv.imshow('imagen2', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+ #+END_SRC
+
+ #+RESULTS:
+
+**** Cizallamiento 
+
+   El cizallamiento es una transformación dada por la matriz, donde $c_x$
+   es el ángulo de cizallamiento respecto al eje x
+
+   \begin{equation}
+   C_x
+   = 
+   \begin{pmatrix}
+   1 & tg(C_x)& 0\\
+   0 & 1 & 0&\\
+   0 & 0 & 1
+   \end{pmatrix}
+
+   \end{equation}
+
+
+
+   #+BEGIN_SRC python :results output
+import cv2 as cv
+import math
+import numpy as np 
+
+img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
+h,w = img.shape[:2]
+img2 = np.zeros((h*2, w*2), dtype = "uint8")
+matz = np.array([[1,1,1],[1,1,1],[1,1,1]])
+for i in range(h):
+    for j in range(w):
+        img2[int(i*2) ,int(j*2)]=img[i,j]
+res = cv.filter2D(img2, -1, matz)
+cv.imshow('imagen1', img)
+cv.imshow('imagen2', img2)
+cv.imshow('imagen3', res)
+cv.waitKey(0)
+cv.destroyAllWindows()
+   #+END_SRC
+
+   #+RESULTS:
+
+*** Traslación Opencv  WarpAffine Afine
+
+   #+BEGIN_SRC python
+import cv2 as cv
+import numpy as np 
+
+img = cv.imread('/home/likcos/Imágenes/mo1.png')
+h,w = img.shape[:2]
+mw = np.float32([[1,0,10],[0,1,10]])
+img2 = cv.warpAffine(img,mw,(h,w))
+
+cv.imshow('imagen1', img)
+cv.imshow('imagen2', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+
+   #+END_SRC
+
+   #+RESULTS:
+   : None
+
+**** Rotación Opencv WarpAffine + getRotationMatrix2D
+
+   #+BEGIN_SRC python
+import cv2 as cv
+import numpy as np 
+
+img = cv.imread('/home/likcos/Imágenes/mo1.png')
+h,w = img.shape[:2]
+
+mw = cv.getRotationMatrix2D((h//2, w//2),30,-1)
+img2 = cv.warpAffine(img,mw,(h,w))
+
+cv.imshow('imagen1', img)
+cv.imshow('imagen2', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+   #+END_SRC
+
+   #+RESULTS:
+   : None
+
+*** Primitivas de Dibujo
+
+   #+BEGIN_SRC python
+import cv2 as cv 
+import numpy as np 
+img = 58*np.ones((1000,1000,3), np.uint8)
+cv.line(img,(0,0), (100,100), (23, 189, 200), 3)
+cv.rectangle(img, (40,40), (80,80), (1,65,90), -1)
+cv.circle(img, (100,100), 50, (45, 190,200),-1)
+cv.circle(img, (100,100), 45, (45, 200,90),-1)
+cv.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
+pts = pts.reshape((-1,1,2))
+cv.polylines(img,[pts],True,(0,255,255))
+cv.imshow('marco',img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+   #+END_SRC
+
+   #+RESULTS:
+
+
+   #+begin_src python :results output
+import cv2 as cv 
+import numpy as np 
+import math
+
+Pi = 3.1416
+img = 255 * np.ones((500, 500, 3 ), np.uint8)
+
+for i in range(360):
+    #img = 255 * np.ones((500, 500, 3 ), np.uint8)
+    h, w = img.shape[:2] 
+   
+    #x = int(h/2) + int(100* math.sin(6*(i*(Pi/180))))*math.sin(i*Pi/180)
+    #y = int(w/2) + int(100* math.sin(6*(i*(Pi/180))))*math.cos(i*Pi/180)
+    
+    #xx = int(h/3) + int(100* (-1+math.cos(i*(Pi/180)))*math.sin(i*Pi/180))
+    #yy = int(w/3) + int(100* (-1+math.cos(i*(Pi/180)))*math.cos(i*Pi/180))
+
+    xx = int(h/2) + int(100* (math.cos(1*(i*(Pi/180))))*(-1*(math.cos(80*(i*Pi/180)))))
+    yy = int(w/2) + int(100* (math.sin(1*(i*(Pi/180))))*(-1*(math.sin(80*(i*Pi/180)))))
+
+    #cv.circle(img, (int(x) , int(y)), 3, (0,i,0), -1)
+    #cv.circle(img, (int(y) , int(x)), 3, (i,0,0), -1)
+    cv.circle(img, (int(xx) , int(yy)), 1, (0,0,i), -1)
+    #cv.imwrite('resultado'+str(i)+'.jpg',img)
+
+    cv.imshow('imagen', img)
+    cv.waitKey(10)
+
+cv.imshow('imagen', img)
+cv.imwrite('resultado.jpg',img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+   
+   #+end_src
+
+
+
 
 *** Vídeo
 
-
- #+BEGIN_SRC python :results output
+**** Cargar vídeo simple opencv 
+  #+BEGIN_SRC python :results output
 
 import cv2 as cv 
 
@@ -342,11 +674,12 @@ while(True):
         break
 cap.release()
 cv.destroyAllWindows()
- #+END_SRC
+  #+END_SRC
 
-#+RESULTS:
+ #+RESULTS:
 
-#+BEGIN_SRC python
+**** División de canales de color en vídeo
+ #+BEGIN_SRC python
 import cv2 as cv 
 import numpy as np
 cap = cv.VideoCapture(0)
@@ -371,7 +704,141 @@ while(True):
         break
 cap.release()
 cv.destroyAllWindows()
+ #+END_SRC
+
+**** Seguimiento por color 
+
+#+BEGIN_SRC python
+import cv2 as cv 
+
+cap = cv.VideoCapture(0)
+while(True):
+    ret, img = cap.read()
+    if ret == True:
+        #cv.imshow('video', img)
+        imghsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+        ubb=(0,100, 100)
+        uba=(20, 255,255)
+        mask = cv.inRange(imghsv, ubb, uba)
+        res = cv.bitwise_and(img, img, mask=mask)
+        cv.imshow('resultado', res)
+
+        k =cv.waitKey(1) & 0xFF
+        if k == 27 :
+            break
+    else:
+        break
+cap.release()
+cv.destroyAllWindows()
+
+
+
+
 #+END_SRC
+
+#+RESULTS:
+: None
+
+
+
+
+*** Haarcascdes 
+Los Haar Cascades son una técnica utilizada en el campo de la visión
+por computadora para la detección de objetos. Fueron introducidos por
+Paul Viola y Michael Jones en su artículo seminal "Rapid Object
+Detection using a Boosted Cascade of Simple Features" en 2001. Esta
+técnica es particularmente conocida por su eficacia en la detección de
+rostros, aunque puede ser utilizada para detectar otros tipos de
+objetos.
+
+#+startup: inlineimages
+#+ATTR_LATEX: :width 0.3\textwidth
+[[file:img/cascade.png]]
+
+**** Conceptos Clave: 
+Características de Haar: Son patrones visuales
+ simples que se pueden calcular rápidamente en una imagen. Estas
+ características se asemejan a pequeñas versiones de núcleos de wavelet
+ de Haar y son utilizadas para capturar la presencia de bordes, cambios
+ de textura, y otras propiedades visuales.
+
+ 
+**** Imágenes Integrales: 
+Para acelerar el cálculo de las características
+ de Haar, se utiliza un concepto llamado imagen integral. Una imagen
+ integral permite calcular la suma de los valores de los píxeles en
+ cualquier área rectangular de la imagen en tiempo constante.
+
+****  Adaboost: 
+Es un método de aprendizaje automático utilizado para
+ mejorar la eficiencia de la detección. Selecciona un pequeño número
+ de características críticas de un conjunto más grande y construye
+ clasificadores "débiles". Luego, estos se combinan en un clasificador
+ más fuerte y eficiente.
+
+****  Cascadas: 
+En lugar de aplicar todas las características a una ventana de la
+imagen, se organizan en una secuencia de etapas (cascadas). Cada etapa
+tiene su propio clasificador (hecho con Adaboost) y solo pasa las
+ventanas de la imagen que parecen prometedoras. Esto reduce
+significativamente el tiempo de cálculo, ya que muchas ventanas no
+pasan las primeras etapas.
+
+ *Proceso de Detección*: 
+Pre-procesamiento: Se convierte la imagen en
+ escala de grises y se crea su imagen integral.
+
+ *Aplicación de las Características*: Se desplaza una ventana sobre la
+ imagen, y en cada posición, se calculan las características de Haar.
+
+ *Clasificación en Cascada*: Cada ventana es evaluada a través de la
+ cascada de clasificadores. Si una ventana falla en alguna etapa, se
+ descarta. Si pasa todas las etapas, se considera como una detección.
+
+ *Post-procesamiento*: Finalmente, se pueden aplicar técnicas como la
+ supresión de no máximos para reducir falsos positivos y mejorar la
+ precisión.
+
+ *Aplicaciones*: Detección de rostros en imágenes y videos.  Detección
+ de peatones u otros objetos en sistemas de vigilancia.  Aplicaciones
+ de realidad aumentada.  Es importante mencionar que, aunque los Haar
+ Cascades fueron revolucionarios en su momento, han sido superados en
+ precisión y velocidad por técnicas más modernas de aprendizaje
+ profundo. Sin embargo, siguen siendo utilizados debido a su
+ simplicidad y bajo requerimiento de recursos computacionales.
+
+**** Ejemplo de un Haarcascade
+
+https://github.com/opencv/opencv/tree/master/data/haarcascades
+
+https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html
+
+https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html
+
+#+BEGIN_SRC python
+import numpy as np
+import cv2 as cv
+import math 
+
+rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
+cap = cv.VideoCapture(0)
+while True:
+    ret, frame = cap.read()
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    rostros = rostro.detectMultiScale(gray, 1.3, 5)
+    for(x, y, w, h) in rostros:
+       frame = cv.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
+ 
+    cv.imshow('rostros', frame)
+    k = cv.waitKey(1)
+    if k == 27:
+        break
+cap.release()
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: None
 
 
 * Desafíos y Consideraciones Éticas
