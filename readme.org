@@ -333,9 +333,9 @@ cv.destroyAllWindows()
 **** Traslación 
  Una translación la podemos hacer simplemente asumiendo que nuevas
  coordenadas $\hat{x} = x + t_x  \hat{y} = y + t_y$ les sumamos un valor
- $t_x$ p t_y según corresponda. En coordenadas homogéneas queda como 
+ $t_x$ p $t_y$ según corresponda. En coordenadas homogéneas queda como 
 
- \begin{equation}
+$$
  \begin{pmatrix}
  \hat{x}\\
  \hat{y}&\\
@@ -353,10 +353,7 @@ cv.destroyAllWindows()
  y&\\
  1
  \end{pmatrix}
-
-
- \end{equation}
-
+$$
  #+BEGIN_SRC python
 import cv2 as cv
 import numpy as np
