@@ -266,6 +266,30 @@ cv.destroyAllWindows()
 
 #+RESULTS:
 
+*** Filtros de convolución 
+#+BEGIN_SRC python
+import cv2 as cv 
+import numpy as np 
+
+img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
+mtz = np.array([[1,0,-1],
+                [2,0,-2],
+                [1,0,-1]])
+resultado = cv.filter2D(img, -1, mtz)
+cv.imshow('marcoc', resultado)
+cv.imshow('marco', img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+
+
+
 *** Canales de color
 #+BEGIN_SRC python :results output
 import cv2 as cv
