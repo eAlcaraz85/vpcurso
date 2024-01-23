@@ -357,6 +357,7 @@ $$
 
 \vec{v} = \begin{bmatrix} X \\\ Y \end{bmatrix}
 
+$$ \begin{bmatrix} X \\ Y \end{bmatrix} $$
 
 
  #+BEGIN_SRC python
