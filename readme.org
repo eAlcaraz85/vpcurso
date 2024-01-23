@@ -354,6 +354,11 @@ $$
  1
  \end{pmatrix}
 $$
+
+\vec{v} = \begin{bmatrix} X \\\ Y \end{bmatrix}
+
+
+
  #+BEGIN_SRC python
 import cv2 as cv
 import numpy as np
