@@ -340,24 +340,25 @@ $$
  \hat{x}\\
  \hat{y}&\\
  1
-
  \end{pmatrix}
+$$
  = 
+$$
  \begin{pmatrix}
  1 & 0& t_x\\
  0 & 1 & t_y&\\
  0 & 0 & 1
  \end{pmatrix}
- \begin{pmatrix}
+$$
+
+$$ 
+\begin{pmatrix}
  x\\
  y&\\
  1
- \end{pmatrix}
+ \end{pmatrix} 
 $$
 
-\vec{v} = \begin{bmatrix} X \\\ Y \end{bmatrix}
-
-$$ \begin{bmatrix} X \\ Y \end{bmatrix} $$
 
 
  #+BEGIN_SRC python
