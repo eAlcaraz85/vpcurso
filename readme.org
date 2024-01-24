@@ -1013,18 +1013,18 @@ import cv2 as cv
 import math 
 
 rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture('/home/likcos/dwhelper/caras.mp4')
 i = 0  
 while True:
     ret, frame = cap.read()
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     rostros = rostro.detectMultiScale(gray, 1.3, 5)
     for(x, y, w, h) in rostros:
-       frame = cv.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
+       #frame = cv.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
        frame2 = frame[ y:y+h, x:x+w]
         #frame3 = frame[x+30:x+w-30, y+30:y+h-30]
-       #frame2 = cv.resize(frame2, (200, 200), interpolation=cv.INTER_AREA)
-       cv.imwrite('/home/likcos/pruebacaras/cara'+str(i)+'.jpg', frame2)
+       frame2 = cv.resize(frame2, (100, 100), interpolation=cv.INTER_AREA)
+       cv.imwrite('/home/likcos/pruebacaras/lujan/lujan'+str(i)+'.jpg', frame2)
        cv.imshow('rostror', frame2)
     cv.imshow('rostros', frame)
     i = i+1
@@ -1041,7 +1041,7 @@ cv.destroyAllWindows()
 #+BEGIN_SRC python
 import cv2 as cv 
 
-rostro = cv.CascadeClassifier('haarcascade_frontalface_alt.xml')
+rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
 cap = cv.VideoCapture(0)
 
 while True:
@@ -1068,9 +1068,347 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
+
+** Reconocimiento de Personas
+
+** Eigenfaces 
+
+
+Un Eigenface (en español cara propia) es el nombre dado a un conjunto
+de vectores propios cuando se utiliza en el problema de visión
+artificial del reconocimiento de rostros humanos. Sirovich y Kirby
+desarrollaron el enfoque de usar caras propias para el reconocimiento
+y lo usaron Matthew Turk y Alex Pentland en la clasificación de
+caras. Los vectores propios se derivan de la matriz de covarianza de
+la distribución de probabilidad sobre el espacio vectorial de alta
+dimensión de imágenes de rostros. Las caras propias forman un conjunto
+base de todas las imágenes utilizadas para construir la matriz de
+covarianza. Esto produce una reducción de la dimensión al permitir que
+el conjunto más pequeño de imágenes base represente las imágenes de
+entrenamiento originales. La clasificación se puede lograr comparando
+cómo se representan las caras por el conjunto base.
+
+ *Generación*
+ Se puede generar un conjunto de caras propias mediante la realización
+ de un proceso matemático llamado análisis de componentes principales
+ (PCA) en un gran conjunto de imágenes que representan diferentes
+ rostros humanos. De manera informal, las caras propias pueden
+ considerarse un conjunto de "ingredientes faciales estandarizados",
+ derivados del análisis estadístico de muchas imágenes de
+ rostros. Cualquier rostro humano puede considerarse una combinación
+ de estos rostros estándar. Por ejemplo, la cara de uno podría estar
+ compuesta por la cara promedio más el 10 % de la cara propia 1, el 55
+ % de la cara propia 2 e incluso el −3 % de la cara
+ propia 3. Sorprendentemente, no se necesitan muchas caras propias
+ combinadas para lograr una aproximación justa de la mayoría de las
+ caras. Además, debido a que la cara de una persona no se registra
+ mediante una fotografía digital, sino simplemente como una lista de
+ valores (un valor para cada cara propia en la base de datos
+ utilizada), se ocupa mucho menos espacio para la cara de cada
+ persona.
+
+ Las caras propias que se crean aparecerán como áreas claras y oscuras
+ que se organizan en un patrón específico. Este patrón es cómo se
+ seleccionan las diferentes características de una cara para
+ evaluarlas y puntuarlas. Habrá un patrón para evaluar la simetría, si
+ hay algún estilo de vello facial, dónde está la línea del cabello o
+ una evaluación del tamaño de la nariz o la boca. Otras caras propias
+ tienen patrones que son menos fáciles de identificar, y la imagen de
+ la cara propia puede parecerse muy poco a una cara.
+
+ La técnica utilizada en la creación de caras propias y su uso para el
+ reconocimiento también se utiliza fuera del reconocimiento facial:
+ reconocimiento de escritura a mano, lectura de labios, reconocimiento
+ de voz, lenguaje de señas /interpretación de gestos con las manos y
+ análisis de imágenes médicas. Por lo tanto, algunos no usan el
+ término "eigenface", sino que prefieren usar 'eigenimage'.
+
+#+BEGIN_SRC python :results output
+import cv2 as cv 
+import numpy as np 
+import os
+
+dataSet = '/home/likcos/pruebacaras'
+faces  = os.listdir(dataSet)
+print(faces)
+
+labels = []
+facesData = []
+label = 0 
+for face in faces:
+    facePath = dataSet+'/'+face
+    for faceName in os.listdir(facePath):
+        labels.append(label)
+        facesData.append(cv.imread(facePath+'/'+faceName,0))
+    label = label + 1
+print(np.count_nonzero(np.array(labels)==0)) 
+
+faceRecognizer = cv.face.EigenFaceRecognizer_create()
+faceRecognizer.train(facesData, np.array(labels))
+faceRecognizer.write('laloEigenface.xml')
+
+#+END_SRC
+
+#+RESULTS:
+: ['lalo']
+: 169
+
+#+BEGIN_SRC python
+import cv2 as cv
+import os 
+
+faceRecognizer = cv.face.EigenFaceRecognizer_create()
+faceRecognizer.read('laloEigenface.xml')
+
+cap = cv.VideoCapture(0)
+rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
+while True:
+    ret, frame = cap.read()
+    if ret == False: break
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    cpGray = gray.copy()
+    rostros = rostro.detectMultiScale(gray, 1.3, 3)
+    for(x, y, w, h) in rostros:
+        frame2 = cpGray[y:y+h, x:x+w]
+        frame2 = cv.resize(frame2,  (100,100), interpolation=cv.INTER_CUBIC)
+        result = faceRecognizer.predict(frame2)
+        #cv.putText(frame, '{}'.format(result), (x,y-20), 1,3.3, (255,255,0), 1, cv.LINE_AA)
+        if result[1] > 2800:
+            cv.putText(frame,'{}'.format(faces[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv.LINE_AA)
+            cv.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+        else:
+            cv.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv.LINE_AA)
+            cv.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
+    cv.imshow('frame', frame)
+    k = cv.waitKey(1)
+    if k == 27:
+        break
+cap.release()
+cv.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
 
 
 
+** Fisherfaces
+
+
+ El algoritmo Fisherfaces es una técnica de reconocimiento facial que
+ forma parte del campo del aprendizaje automático y la visión por
+ computadora. Este algoritmo es una extensión del método de Análisis de
+ Componentes Principales (PCA) y fue diseñado específicamente para
+ mejorar la capacidad de reconocimiento en situaciones donde la
+ iluminación y las expresiones faciales varían significativamente.
+
+ La idea central detrás de Fisherfaces es reducir la dimensionalidad de
+ las imágenes faciales manteniendo al mismo tiempo la capacidad de
+ distinguir entre diferentes clases (es decir, diferentes
+ personas). Esto se logra mediante el Análisis Discriminante Lineal
+ (LDA), que es la base del método Fisherfaces. Aquí te explico cómo
+ funciona:
+
+ Preprocesamiento: Las imágenes faciales se normalizan en términos de
+ tamaño, orientación e iluminación.
+
+ *Análisis de Componentes Principales (PCA)*: Se realiza PCA para reducir
+ la dimensionalidad de los datos. PCA identifica las direcciones en las
+ que los datos varían más y proyecta los datos en un espacio de menor
+ dimensión preservando estas variaciones principales.
+
+ *Análisis Discriminante Lineal (LDA)*: Después de aplicar PCA, se
+ utiliza LDA para encontrar las combinaciones lineales de
+ características que mejor separan las diferentes clases (diferentes
+ personas). Mientras que PCA busca direcciones que maximizan la
+ varianza en los datos, LDA busca maximizar la separación entre las
+ diferentes clases.
+
+ *Proyección y Clasificación*: Las imágenes se proyectan en el espacio de
+ características obtenido por PCA y LDA. Luego, se utiliza un
+ clasificador (como k-NN o máquinas de vectores de soporte) para
+ identificar a qué clase (persona) pertenece cada imagen proyectada
+ basándose en las características extraídas.
+
+ El algoritmo Fisherfaces es particularmente efectivo en situaciones
+ donde las variaciones entre las imágenes de una misma clase (por
+ ejemplo, las diferentes expresiones faciales de una persona) son
+ menores en comparación con las variaciones entre clases diferentes
+ (diferentes personas). Esto lo hace robusto frente a cambios en la
+ iluminación y las expresiones faciales, siendo una técnica popular en
+ aplicaciones de reconocimiento facial.
+
+ #+BEGIN_SRC python ::results
+import cv2 as cv 
+import numpy as np 
+import os
+
+dataSet = '/home/likcos/pruebacaras'
+faces  = os.listdir(dataSet)
+print(faces)
+
+labels = []
+facesData = []
+label = 0 
+for face in faces:
+    facePath = dataSet+'/'+face
+    for faceName in os.listdir(facePath):
+        labels.append(label)
+        facesData.append(cv.imread(facePath+'/'+faceName,0))
+    label = label + 1
+#print(np.count_nonzero(np.array(labels)==0)) 
+faceRecognizer = cv.face.FisherFaceRecognizer_create()
+faceRecognizer.train(facesData, np.array(labels))
+faceRecognizer.write('laloFisherFace.xml')
+
+
+ #+END_SRC
+
+ #+RESULTS:
+ : None
+
+ #+BEGIN_SRC python
+import cv2 as cv
+import os 
+
+faceRecognizer = cv.face.FisherFaceRecognizer_create()
+faceRecognizer.read('laloFisherFace.xml')
+
+cap = cv.VideoCapture(0)
+rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
+while True:
+    ret, frame = cap.read()
+    if ret == False: break
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    cpGray = gray.copy()
+    rostros = rostro.detectMultiScale(gray, 1.3, 3)
+    for(x, y, w, h) in rostros:
+        frame2 = cpGray[y:y+h, x:x+w]
+        frame2 = cv.resize(frame2,  (100,100), interpolation=cv.INTER_CUBIC)
+        result = faceRecognizer.predict(frame2)
+        cv.putText(frame, '{}'.format(result), (x,y-20), 1,3.3, (255,255,0), 1, cv.LINE_AA)
+        if result[1] < 500:
+            cv2.putText(frame,'{}'.format(faces[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+        else:
+            cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
+    cv.imshow('frame', frame)
+    k = cv.waitKey(1)
+    if k == 27:
+        break
+cap.release()
+cv.destroyAllWindows()
+
+
+
+ #+END_SRC
+
+ #+RESULTS:
+ : None
+
+
+
+** LBPH
+El LBPH es un enfoque simple y efectivo para el reconocimiento
+facial. A diferencia de otros métodos que operan en todo el rostro, el
+LBPH trabaja examinando características locales. Su popularidad se
+debe a su simplicidad, velocidad y buen rendimiento, incluso en
+condiciones de iluminación desafiantes. Aquí está cómo funciona:
+
+División de la Imagen en Celdas: La imagen del rostro se divide en
+pequeñas regiones o celdas.
+
+*Calculo de Patrones Binarios Locales (LBP):* Para cada píxel en una
+región, se compara su intensidad con las de sus vecinos (generalmente
+8 vecinos circundantes). Si la intensidad del vecino es mayor o igual
+que el píxel central, se asigna un 1, de lo contrario un 0. Esto
+genera un número binario de 8 dígitos (o un número decimal después de
+la conversión) para cada píxel.
+
+*Histogramas:* Se calcula un histograma de estas etiquetas LBP para cada
+celda. Los histogramas cuentan la frecuencia de cada número obtenido
+en el paso anterior dentro de la celda.
+
+*Concatenación de Histogramas:* Los histogramas de todas las celdas se
+concatenan en un solo vector de características. Este vector describe
+las características locales de la imagen de la cara.
+
+*Reconocimiento:* Para reconocer un rostro desconocido, se calcula su
+vector de características LBPH y se compara con los vectores de
+características de las caras conocidas (generalmente usando una medida
+de distancia, como la distancia euclidiana). La imagen desconocida se
+identifica como la clase (es decir, la persona) cuyo vector de
+características conocido sea más cercano al del rostro desconocido.
+
+El LBPH es eficaz en diversas condiciones y no requiere un
+preprocesamiento tan intenso como otros métodos de reconocimiento
+facial. Puede manejar variaciones en iluminación y expresión facial
+bastante bien. Además, su implementación es relativamente sencilla, lo
+que lo hace popular para aplicaciones en tiempo real y sistemas
+embebidos.
+
+#+BEGIN_SRC python
+import cv2 as cv 
+import numpy as np 
+import os
+
+dataSet = '/home/likcos/pruebacaras'
+faces  = os.listdir(dataSet)
+print(faces)
+
+labels = []
+facesData = []
+label = 0 
+for face in faces:
+    facePath = dataSet+'/'+face
+    for faceName in os.listdir(facePath):
+        labels.append(label)
+        facesData.append(cv.imread(facePath+'/'+faceName,0))
+    label = label + 1
+#print(np.count_nonzero(np.array(labels)==0)) 
+faceRecognizer = cv.face.LBPHFaceRecognizer_create()
+faceRecognizer.train(facesData, np.array(labels))
+faceRecognizer.write('laloLBPHFace.xml')
+
+#+END_SRC
+
+#+BEGIN_SRC python
+import cv2 as cv
+import os 
+
+faceRecognizer = cv.face.LBPHFaceRecognizer_create()
+faceRecognizer.read('laloLBPHFace.xml')
+
+cap = cv.VideoCapture(0)
+rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
+while True:
+    ret, frame = cap.read()
+    if ret == False: break
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    cpGray = gray.copy()
+    rostros = rostro.detectMultiScale(gray, 1.3, 3)
+    for(x, y, w, h) in rostros:
+        frame2 = cpGray[y:y+h, x:x+w]
+        frame2 = cv.resize(frame2,  (100,100), interpolation=cv.INTER_CUBIC)
+        result = faceRecognizer.predict(frame2)
+        cv.putText(frame, '{}'.format(result), (x,y-20), 1,3.3, (255,255,0), 1, cv.LINE_AA)
+        if result[1] < 70:
+            cv2.putText(frame,'{}'.format(faces[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+        else:
+            cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2) 
+    cv.imshow('frame', frame)
+    k = cv.waitKey(1)
+    if k == 27:
+        break
+cap.release()
+cv.destroyAllWindows()
+
+
+#+END_SRC
 
 * Desafíos y Consideraciones Éticas
   - Desafíos Técnicos: Precisión, grandes conjuntos de datos, computación intensiva.
