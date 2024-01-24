@@ -1007,6 +1007,7 @@ https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetec
 
 https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html
 
+https://amin-ahmadi.com/cascade-trainer-gui/
 #+BEGIN_SRC python
 import numpy as np
 import cv2 as cv
@@ -1070,7 +1071,8 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-** Reconocimiento de Personas
+
+* Reconocimiento de Personas
 
 ** Eigenfaces 
 
