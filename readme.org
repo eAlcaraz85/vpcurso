@@ -3,6 +3,8 @@
 #+email: eduardo.ac@morelia.tecnm.mx
 
 
+https://www.dropbox.com/scl/fo/tf9swvr39olsxnluw162j/h?rlkey=x0c9xcgyn8ebc0feb8x64pgos&dl=0
+
 * ¿Que es la visión por computadora?
 
 La visión por computadora es un campo de la inteligencia artificial asociado al análisis de imágenes y vídeos, que incluye un conjunto de técnicas que otorgan a la computadora la capacidad de *ver* y extraer información de aquello que se ha visto.
@@ -15,7 +17,6 @@ Para enseñar a una computadora a *ver*, se utilizan tecnologías de aprendizaje
 #+startup: inlineimages
 #+ATTR_LATEX: :width 0.3\textwidth
 [[file:img/im1.jpg]]
-
 
 * Aspectos Claves de la visión por computadora 
 
@@ -38,14 +39,12 @@ los vehículos autónomos, la inspección industrial, la gestión de contenido d
 beneficia enormemente de los avances en el aprendizaje automático y el aprendizaje profundo, permitiendo el desarrollo de sistemas más
 precisos y eficientes para el análisis visual.
 
-
 * Libros de Visión por Computadora 
 - Geometría de Vistas Múltiples en Visión por Computadora *Richard Hartley*
 - Visión por Computadora Modelos, Aprendizaje e Inferencia *Simon J. D. Prince*
 - Visión por Computadora Un Enfoque Moderno *David A. Forsyth*
 - Aprendizaje Profundo Práctico para la Nube, Móvil y Edge Proyectos Reales de IA y Visión por Computadora Usando Python, Keras y TensorFlow *Anirudh Koul*
 - Aprendiendo OpenCV 4 Visión por Computadora con Python 3 Entiende las herramientas, técnicas y algoritmos para la visión por computadora y el aprendizaje automático *Joseph Howse*
-
 
 * Tecnologías y Herramientas
   - Lenguajes de Programación: Python, C++, C.
@@ -232,7 +231,6 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
    - Asegúrate de que tu sistema esté actualizado antes de comenzar la instalación.
 
    - Los pasos exactos pueden variar ligeramente dependiendo de la versión y el tipo de tu distribución de Linux. 
-
 
 
 * Aplicaciones de la Visión por Computadora
@@ -1014,7 +1012,7 @@ import cv2 as cv
 import math 
 
 rostro = cv.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
-cap = cv.VideoCapture('/home/likcos/dwhelper/caras.mp4')
+cap = cv.VideoCapture(0)
 i = 0  
 while True:
     ret, frame = cap.read()
@@ -1025,7 +1023,7 @@ while True:
        frame2 = frame[ y:y+h, x:x+w]
         #frame3 = frame[x+30:x+w-30, y+30:y+h-30]
        frame2 = cv.resize(frame2, (100, 100), interpolation=cv.INTER_AREA)
-       cv.imwrite('/home/likcos/pruebacaras/lujan/lujan'+str(i)+'.jpg', frame2)
+       cv.imwrite('/home/likcos/pruebacaras/juan/juan'+str(i)+'.jpg', frame2)
        cv.imshow('rostror', frame2)
     cv.imshow('rostros', frame)
     i = i+1
@@ -1070,7 +1068,6 @@ cv.destroyAllWindows()
 
 #+RESULTS:
 : None
-
 
 * Reconocimiento de Personas
 
@@ -1126,11 +1123,12 @@ cómo se representan las caras por el conjunto base.
  análisis de imágenes médicas. Por lo tanto, algunos no usan el
  término "eigenface", sino que prefieren usar 'eigenimage'.
 
+
+
 #+BEGIN_SRC python :results output
 import cv2 as cv 
 import numpy as np 
 import os
-
 dataSet = '/home/likcos/pruebacaras'
 faces  = os.listdir(dataSet)
 print(faces)
@@ -1209,8 +1207,7 @@ cv.destroyAllWindows()
  las imágenes faciales manteniendo al mismo tiempo la capacidad de
  distinguir entre diferentes clases (es decir, diferentes
  personas). Esto se logra mediante el Análisis Discriminante Lineal
- (LDA), que es la base del método Fisherfaces. Aquí te explico cómo
- funciona:
+ (LDA), que es la base del método Fisherfaces. 
 
  Preprocesamiento: Las imágenes faciales se normalizan en términos de
  tamaño, orientación e iluminación.
@@ -1241,6 +1238,7 @@ cv.destroyAllWindows()
  iluminación y las expresiones faciales, siendo una técnica popular en
  aplicaciones de reconocimiento facial.
 
+#+CAPTION: Script para leer un dataset y generar el entrenamiento con FisherFaces
  #+BEGIN_SRC python ::results
 import cv2 as cv 
 import numpy as np 
@@ -1411,6 +1409,44 @@ cv.destroyAllWindows()
 
 
 #+END_SRC
+
+
+* Redes Neuronales Convolucionales 
+
+** ¿Cómo funcionan las Convolutional Neural Networks?
+
+
+La Red Neuronal Convolucional (CNN) es una forma avanzada de Red
+Neuronal Artificial diseñada para el procesamiento de imágenes. Emula
+la manera en que el cortex visual humano procesa la información
+visual, lo que le permite identificar y clasificar distintas
+características en las imágenes. Esta capacidad la convierte en una
+herramienta eficaz para la "visión" computarizada y el reconocimiento
+de objetos.
+
+Las CNN están compuestas por múltiples capas ocultas, cada una
+especializada y jerarquizada. Las capas iniciales suelen detectar
+elementos simples como líneas y curvas. A medida que la información
+avanza a través de la red, las capas subsiguientes procesan aspectos
+más complejos, como formas específicas y patrones. Esta progresión
+permite a las capas más profundas reconocer objetos más complejos,
+como rostros o siluetas animales.
+
+Para que una CNN aprenda a identificar una amplia gama de objetos en
+imágenes, es crucial entrenarla con un extenso conjunto de datos. Por
+ejemplo, para el reconocimiento de gatos, se necesitarían miles de
+imágenes que muestren variaciones en color, raza, postura y
+entorno. Este entrenamiento supervisado permite a la red aprender las
+características distintivas de cada objeto y generalizar esta
+comprensión para reconocer nuevas imágenes de manera efectiva. Así,
+una CNN bien entrenada puede distinguir un gato independientemente de
+su posición, color o tamaño, adaptándose a una amplia gama de
+situaciones visuales.
+
+
+
+
+
 
 * Desafíos y Consideraciones Éticas
   - Desafíos Técnicos: Precisión, grandes conjuntos de datos, computación intensiva.
