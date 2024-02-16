@@ -11,7 +11,8 @@ La visión por computadora es un campo de la inteligencia artificial asociado al
 
 Los sistemas se componen de una cámara fotográfica o de vídeo y un software especializado que identifica y clasifica objetos. Son capaces de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así como caras y emociones.
 
-Para enseñar a una computadora a *ver*, se utilizan tecnologías de aprendizaje automático y se recopilan muchos datos que permiten resaltar características y combinaciones de las mismas para identificar aún más objetos similares.
+Para enseñar a una computadora a *ver*  [fn:1], se utilizan tecnologías de aprendizaje automático y se recopilan muchos datos que permiten resaltar características y combinaciones de las mismas para identificar aún más objetos similares.
+[fn:1] Vision por Computadora
 
 * Visión por computadora
 #+startup: inlineimages
