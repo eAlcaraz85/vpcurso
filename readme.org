@@ -435,8 +435,8 @@ cv.destroyAllWindows()
 **** Escalamiento 
 	 El escalamiento puede entenderse como hacer una figura geométrica
 	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
-	 podemos representar por como $\hat{x}$ = x s_x$ y en y como
-	 $\hat{y} = y$  $s_y$ En coordenada homogéneas se puede expresar como 
+	 podemos representar por como $\hat{x} = x$, $s_x$ y en y como
+	 $\hat{y} = y$,  $s_y$ En coordenada homogéneas se puede expresar como 
 $$
  \begin{pmatrix}
  \hat{xs}\\
@@ -483,10 +483,11 @@ cv.destroyAllWindows()
 **** Rotación 
 
  Considerando el caso de un punto que rota respecto a un punto
- fijo. Las coordenadas x y y, en forma polar las podemos obtener como x=r 
+ fijo. Las coordenadas x y y, en forma polar las podemos obtener como $x=r$ 
  $cos(\theta) y y = r sen(\theta)$. Si consideramos que esta gira un ángulo $\theta$    
  entonces podemos representar esta rotación en forma polar. 
  
+$$
  \begin{equation}
  \begin{pmatrix}
  \hat{x}\\
@@ -538,8 +539,9 @@ cv.destroyAllWindows()
  \begin{equation}
  xcos(\theta) - ysin(\theta), xsen(\theta) + ycos(\theta)
  \end{equation}
-
- #+BEGIN_SRC python :results output
+$$
+ 
+#+BEGIN_SRC python :results output
 import cv2 as cv
 import math
 import numpy as np 
