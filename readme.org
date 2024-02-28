@@ -438,7 +438,6 @@ cv.destroyAllWindows()
 	 podemos representar por como $\hat{x}$ = x s_x$ y en y como
 	 $\hat{y} = y$  $s_y$ En coordenada homogéneas se puede expresar como 
 $$
- \begin{equation}
  \begin{pmatrix}
  \hat{x}\\
  \hat{y}&\\
@@ -455,8 +454,8 @@ $$
  y&\\
  1
  \end{pmatrix}
-\end{equation}
 $$	
+
  #+BEGIN_SRC python :results output
 import cv2 as cv
 import numpy as np
