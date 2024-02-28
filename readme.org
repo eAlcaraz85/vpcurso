@@ -439,7 +439,7 @@ cv.destroyAllWindows()
 	 $\hat{y} = y$  $s_y$ En coordenada homogéneas se puede expresar como 
 $$
  \begin{pmatrix}
- \hat{x}\\
+ \hat{xs}\\
  \hat{y}&\\
  1
  \end{pmatrix}
@@ -449,7 +449,8 @@ $$
  0 & s_y & 0&\\
  0 & 0 & 1
  \end{pmatrix}
- \begin{pmatrix}
+ 
+\begin{pmatrix}
  x\\
  y&\\
  1
