@@ -2,15 +2,22 @@
 #+author: Eduardo Alcaraz
 #+email: eduardo.ac@morelia.tecnm.mx
 
-
-
 * ¿Que es la visión por computadora?
 
-La visión por computadora es un campo de la inteligencia artificial asociado al análisis de imágenes y vídeos, que incluye un conjunto de técnicas que otorgan a la computadora la capacidad de *ver* y extraer información de aquello que se ha visto.
+La visión por computadora es un campo de la inteligencia artificial
+asociado al análisis de imágenes y vídeos, que incluye un conjunto de
+técnicas que otorgan a la computadora la capacidad de *ver* y extraer
+información de aquello que se ha visto.
 
-Los sistemas se componen de una cámara fotográfica o de vídeo y un software especializado que identifica y clasifica objetos. Son capaces de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así como caras y emociones.
+Los sistemas se componen de una cámara fotográfica o de vídeo y un
+software especializado que identifica y clasifica objetos. Son capaces
+de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así
+como caras y emociones.
 
-Para enseñar a una computadora a *ver* , se utilizan tecnologías de aprendizaje automático y se recopilan muchos datos que permiten resaltar características y combinaciones de las mismas para identificar aún más objetos similares.
+Para enseñar a una computadora a *ver* , se utilizan tecnologías de
+aprendizaje automático y se recopilan muchos datos que permiten
+resaltar características y combinaciones de las mismas para
+identificar aún más objetos similares.
 
 
 * Visión por computadora
@@ -20,31 +27,54 @@ Para enseñar a una computadora a *ver* , se utilizan tecnologías de aprendizaj
 
 * Aspectos Claves de la visión por computadora 
 
- - *Procesamiento de Imágenes*: Involucra técnicas para mejorar imágenes digitales, extraer información útil, realizar ajustes como corrección de color, reducción de ruido, y más.
+ - *Procesamiento de Imágenes*: Involucra técnicas para mejorar
+   imágenes digitales, extraer información útil, realizar ajustes como
+   corrección de color, reducción de ruido, y más.
 
- - *Reconocimiento de Patrones*: Se refiere a la identificación de patrones, formas y características en las imágenes. Esto puede incluir el reconocimiento de rostros, objetos, escenas, gestos, etc.
+ - *Reconocimiento de Patrones*: Se refiere a la identificación de
+   patrones, formas y características en las imágenes. Esto puede
+   incluir el reconocimiento de rostros, objetos, escenas, gestos,
+   etc.
 
- - *Segmentación de Imágenes*: Se trata de dividir una imagen en  diferentes partes o segmentos, a menudo para aislar regiones o elementos de interés.
+ - *Segmentación de Imágenes*: Se trata de dividir una imagen en
+   diferentes partes o segmentos, a menudo para aislar regiones o
+   elementos de interés.
 
- - *Detección y Seguimiento de Objetos*: Implica identificar y seguir objetos a lo largo del tiempo en una serie de imágenes o vídeos.
+ - *Detección y Seguimiento de Objetos*: Implica identificar y seguir
+   objetos a lo largo del tiempo en una serie de imágenes o vídeos.
 
- - *Reconstrucción 3D*: Consiste en crear representaciones tridimensionales de un objeto o escena a partir de imágenes bidimensionales.
+ - *Reconstrucción 3D*: Consiste en crear representaciones
+   tridimensionales de un objeto o escena a partir de imágenes
+   bidimensionales.
 
- - *Visión Artificial en Robótica*: Aplicación de la visión por computadora en robots para la navegación, manipulación de objetos y otras tareas.
+ - *Visión Artificial en Robótica*: Aplicación de la visión por
+   computadora en robots para la navegación, manipulación de objetos y
+   otras tareas.
 
- - *Interpretación de Escenas*: Comprende el análisis de escenas completas en términos de identificación de objetos, su disposición espacial, interacciones, y el contexto general.
+ - *Interpretación de Escenas*: Comprende el análisis de escenas
+   completas en términos de identificación de objetos, su disposición
+   espacial, interacciones, y el contexto general.
 
-La visión por computadora se utiliza en una variedad de aplicaciones, que van desde la seguridad y vigilancia hasta la medicina, pasando por
-los vehículos autónomos, la inspección industrial, la gestión de contenido digital y la interacción hombre-máquina. Este campo se
-beneficia enormemente de los avances en el aprendizaje automático y el aprendizaje profundo, permitiendo el desarrollo de sistemas más
+La visión por computadora se utiliza en una variedad de aplicaciones,
+que van desde la seguridad y vigilancia hasta la medicina, pasando por
+los vehículos autónomos, la inspección industrial, la gestión de
+contenido digital y la interacción hombre-máquina. Este campo se
+beneficia enormemente de los avances en el aprendizaje automático y el
+aprendizaje profundo, permitiendo el desarrollo de sistemas más
 precisos y eficientes para el análisis visual.
 
 * Libros de Visión por Computadora 
-- Geometría de Vistas Múltiples en Visión por Computadora *Richard Hartley*
-- Visión por Computadora Modelos, Aprendizaje e Inferencia *Simon J. D. Prince*
+- Geometría de Vistas Múltiples en Visión por Computadora *Richard
+  Hartley*
+- Visión por Computadora Modelos, Aprendizaje e Inferencia *Simon
+  J. D. Prince*
 - Visión por Computadora Un Enfoque Moderno *David A. Forsyth*
-- Aprendizaje Profundo Práctico para la Nube, Móvil y Edge Proyectos Reales de IA y Visión por Computadora Usando Python, Keras y TensorFlow *Anirudh Koul*
-- Aprendiendo OpenCV 4 Visión por Computadora con Python 3 Entiende las herramientas, técnicas y algoritmos para la visión por computadora y el aprendizaje automático *Joseph Howse*
+- Aprendizaje Profundo Práctico para la Nube, Móvil y Edge Proyectos
+  Reales de IA y Visión por Computadora Usando Python, Keras y
+  TensorFlow *Anirudh Koul*
+- Aprendiendo OpenCV 4 Visión por Computadora con Python 3 Entiende
+  las herramientas, técnicas y algoritmos para la visión por
+  computadora y el aprendizaje automático *Joseph Howse*
 
 * Tecnologías y Herramientas
   - Lenguajes de Programación: Python, C++, C.
@@ -89,11 +119,15 @@ precisos y eficientes para el análisis visual.
      import cv2
      print(cv2.__version__)
      #+END_SRC
-   - Si se muestra la versión de OpenCV sin errores, la instalación fue exitosa.
+   - Si se muestra la versión de OpenCV sin errores, la instalación
+     fue exitosa.
 
 - *Notas Finales*
-   - Es recomendable reiniciar el sistema después de instalar Python para asegurar que todos los cambios de configuración se apliquen correctamente.
-   - Puede ser útil trabajar en un entorno virtual para proyectos de Python para gestionar las dependencias de manera más eficiente.
+   - Es recomendable reiniciar el sistema después de instalar Python
+     para asegurar que todos los cambios de configuración se apliquen
+     correctamente.
+   - Puede ser útil trabajar en un entorno virtual para proyectos de
+     Python para gestionar las dependencias de manera más eficiente.
 
 	
 
@@ -154,17 +188,24 @@ macOS viene con Python 2.7 instalado por defecto, pero se recomienda usar Python
 
 *** Instalación python Opencv Linux
 
-Instalar Python 3 y OpenCV en un sistema Linux generalmente es un proceso sencillo. A continuación, te presento los pasos genéricos para la mayoría de las distribuciones de Linux. Ten en cuenta que estos pasos pueden variar ligeramente dependiendo de la distribución específica que estés utilizando (como Ubuntu, Fedora, etc.).
+Instalar Python 3 y OpenCV en un sistema Linux generalmente es un
+proceso sencillo. A continuación, te presento los pasos genéricos para
+la mayoría de las distribuciones de Linux. Ten en cuenta que estos
+pasos pueden variar ligeramente dependiendo de la distribución
+específica que estés utilizando (como Ubuntu, Fedora, etc.).
 
 - *Instalar Python 3*
 
-La mayoría de las distribuciones modernas de Linux ya vienen con Python 3 instalado. Puedes verificar si Python 3 está instalado y su versión usando el siguiente comando en la terminal:
+La mayoría de las distribuciones modernas de Linux ya vienen con
+Python 3 instalado. Puedes verificar si Python 3 está instalado y su
+versión usando el siguiente comando en la terminal:
 
 #+BEGIN_SRC shell
 python3 --version
 #+END_SRC
 
-Si Python 3 no está instalado o deseas una versión más reciente, puedes instalarlo a través del gestor de paquetes de tu distribución:
+Si Python 3 no está instalado o deseas una versión más reciente,
+puedes instalarlo a través del gestor de paquetes de tu distribución:
 
 - *En distribuciones basadas en Debian (como Ubuntu):*
 
@@ -240,8 +281,6 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
 
 ** Programación 
 *** Cargar imagen 
-
-
    #+BEGIN_SRC python :results output
 import cv2 as cv 
 img = cv.imread('/home/likcos/Imágenes/tr.png', 0)
@@ -343,7 +382,7 @@ cv.destroyAllWindows()
   constituida por translación, escalamiento, rotación y
   cizallamiento. Cada una de estas Transformaciones es una
   Transformación afín. 
-
+  
 **** Traslación 
  Una translación la podemos hacer simplemente asumiendo que nuevas
  coordenadas $\hat{x} = x + t_x  \hat{y} = y + t_y$ les sumamos un valor
@@ -355,17 +394,12 @@ $$
  \hat{y}&\\
  1
  \end{pmatrix}
-$$
  = 
-$$
  \begin{pmatrix}
  1 & 0& t_x\\
  0 & 1 & t_y&\\
  0 & 0 & 1
  \end{pmatrix}
-$$
-
-$$ 
 \begin{pmatrix}
  x\\
  y&\\
@@ -1072,7 +1106,6 @@ cv.destroyAllWindows()
 * Reconocimiento de Personas
 
 ** Eigenfaces 
-
 
 Un Eigenface (en español cara propia) es el nombre dado a un conjunto
 de vectores propios cuando se utiliza en el problema de visión
