@@ -1595,7 +1595,55 @@ una CNN bien entrenada puede distinguir un gato independientemente de
 su posición, color o tamaño, adaptándose a una amplia gama de
 situaciones visuales.
 
+** Convolución
 
+La convolución es una operación matemática que combina dos conjuntos
+de información. En el contexto de redes neuronales convolucionales
+(CNN), la convolución se refiere a aplicar un filtro (también conocido
+como kernel) a una imagen de entrada para producir un mapa de
+características.  Cómo Funciona:
+
+Un filtro de tamaño fijo recorre la imagen de entrada.  En cada
+posición del filtro, se realiza una multiplicación punto a punto entre
+los valores del filtro y los valores de la imagen bajo el filtro.  Los
+productos resultantes se suman para obtener un único valor en el mapa
+de características.  Este proceso se repite para cada posición del
+filtro, generando un mapa de características que resalta ciertas
+características de la imagen, como bordes, texturas y patrones.
+Propósitos:
+
+Extraer características locales de la imagen.  Capturar patrones
+espaciales y relaciones en la imagen.  Reducir la dimensionalidad
+espacial de la imagen mientras se mantiene la información relevante.
+
+
+** Padding
+Añadir píxeles adicionales alrededor de los bordes de la entrada antes
+de la operación de convolución para controlar el tamaño de la salida y
+conservar información de los bordes.
+
+** Strides (Paso)
+
+Número de píxeles que el filtro (kernel) se desplaza sobre la entrada
+durante la operación de convolución. Un stride mayor que 1 reduce la
+resolución espacial de la salida.
+
+** Max Pooling Definición:
+
+Operación que reduce la dimensionalidad espacial de la entrada tomando
+el valor máximo dentro de una ventana específica, manteniendo las
+características más importantes y reduciendo el tamaño de la salida.
+
+** Stacking (Apilamiento)
+
+Práctica de añadir múltiples capas convolucionales y de pooling en una
+secuencia dentro de una red neuronal, permitiendo la construcción de
+redes profundas y la extracción de características cada vez más
+complejas.
+
+#+startup: inlineimages
+#+ATTR_LATEX: :width 0.3\textwidth
+[[file:img/conv.png]]
 
 
 
