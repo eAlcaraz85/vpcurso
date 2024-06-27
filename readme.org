@@ -3,6 +3,8 @@
 #+email: eduardo.ac@morelia.tecnm.mx
 
 * ¿Que es la visión por computadora?
+[[https://www.dropbox.com/scl/fo/54jqpwdzfnm6l0mdc6hur/h?rlkey=i85skh89ll342evwedk0t3x7r&st=kxmgh8vh&dl=0][Libros]]
+
 
 La visión por computadora es un campo de la inteligencia artificial
 asociado al análisis de imágenes y vídeos, que incluye un conjunto de
@@ -12,6 +14,8 @@ información de aquello que se ha visto.
 Los sistemas se componen de una cámara fotográfica o de vídeo y un
 software especializado que identifica y clasifica objetos. Son capaces
 de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así
+
+* 
 como caras y emociones.
 
 Para enseñar a una computadora a *ver* , se utilizan tecnologías de
