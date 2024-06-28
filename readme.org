@@ -1894,6 +1894,68 @@ MobileNet SSD es una arquitectura  eficiente para la
 detección de objetos en tiempo real, especialmente adecuada para
 dispositivos con recursos limitados.
 
+#+BEGIN_SRC python
+import cv2
+
+# Rutas de los archivos de configuración y modelo de MobileNet SSD
+prototxt = "/home/likcos/yolo/MobileNetSSD_deploy.prototxt.txt"
+model = "/home/likcos/yolo/MobileNetSSD_deploy.caffemodel"
+
+# Diccionario de clases con sus respectivos IDs
+classes = {0: "background", 1: "aeroplane", 2: "bicycle",
+           3: "bird", 4: "boat",
+           5: "bottle", 6: "bus",
+           7: "car", 8: "cat",
+           9: "chair", 10: "cow",
+           11: "diningtable", 12: "dog",
+           13: "horse", 14: "motorbike",
+           15: "person", 16: "pottedplant",
+           17: "sheep", 18: "sofa",
+           19: "train", 20: "tvmonitor"}
+
+# Cargar la red MobileNet SSD desde los archivos de configuración y modelo
+net = cv2.dnn.readNetFromCaffe(prototxt, model)
+
+# Leer la imagen desde el archivo especificado
+image = cv2.imread("/home/likcos/yolo/paj1.png")
+height, width, _ = image.shape
+# Redimensionar la imagen a 300x300 píxeles, tamaño de entrada esperado por la red
+image_resized = cv2.resize(image, (300, 300))
+
+# Crear un blob a partir de la imagen redimensionada (preprocesamiento)
+blob = cv2.dnn.blobFromImage(image_resized, 0.007843, (300, 300), (127.5, 127.5, 127.5))
+print("blob.shape:", blob.shape)
+
+# Configurar la entrada de la red con el blob
+net.setInput(blob)
+# Realizar la pasada hacia adelante (forward pass) y obtener las detecciones
+detections = net.forward()
+
+# Iterar sobre cada detección
+for detection in detections[0][0]:
+    print(detection)
+
+    # Filtrar detecciones con una confianza mayor al 45%
+    if detection[2] > 0.45:
+        # Obtener la etiqueta de la clase
+        label = classes[detection[1]]
+        print("Label:", label)
+        # Escalar las coordenadas de la caja delimitadora a las dimensiones de la imagen original
+        box = detection[3:7] * [width, height, width, height]
+        x_start, y_start, x_end, y_end = int(box[0]), int(box[1]), int(box[2]), int(box[3])
+
+        # Dibujar la caja delimitadora y las etiquetas en la imagen
+        cv2.rectangle(image, (x_start, y_start), (x_end, y_end), (0, 255, 0), 2)
+        cv2.putText(image, "Conf: {:.2f}".format(detection[2] * 100), (x_start, y_start - 5), 1, 1.2, (255, 0, 0), 2)
+        cv2.putText(image, label, (x_start, y_start - 25), 1, 1.2, (255, 0, 0), 2)
+
+# Mostrar la imagen resultante con las detecciones
+cv2.imshow("Image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+#+END_SRC
 
 
 * Desafíos y Consideraciones Éticas
