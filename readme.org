@@ -1651,11 +1651,258 @@ complejas.
 
 
 
+** YOLO
+YOLO (You Only Look Once) es un algoritmo de detección de objetos en
+tiempo real que se ha destacado por su velocidad y precisión. Fue
+desarrollado por Joseph Redmon y sus colaboradores. 
+
+***  YOLO (You Only Look Once)
+
+- *Enfoque Unificado*: A diferencia de otros métodos que aplican el
+  proceso de detección en varias etapas, YOLO trata la detección de
+  objetos como un problema de regresión único, convirtiendo la imagen
+  de entrada directamente en coordenadas de cajas delimitadoras y
+  probabilidades de clase en una sola pasada de la red neuronal.
+
+- *Red Convolucional*: YOLO utiliza una red neuronal convolucional
+  profunda para extraer características de la imagen.
+
+- *División de la Imagen*: La imagen de entrada se divide en una
+  cuadrícula \textit{times}. Cada celda de la cuadrícula es
+  responsable de predecir un número fijo de cajas delimitadoras y las
+  probabilidades de las clases para esas cajas.
+
+***  Predicciones
+- *Cajas Delimitadoras*: Cada celda de la cuadrícula predice un conjunto
+  de cajas delimitadoras (bounding boxes), cada una con:
+  - Coordenadas \( (x, y) \): La posición del centro de la caja con respecto a los bordes de la celda de la cuadrícula.
+  - Ancho y alto \( (w, h) \): Dimensiones de la caja delimitadora relativas al tamaño de la imagen.
+  - Confianza de la caja: Una puntuación que indica la probabilidad de que la caja contenga un objeto y la precisión de la caja delimitadora.
+- *Probabilidades de Clase*: Cada celda también predice la probabilidad de las clases para los objetos presentes en las cajas delimitadoras.
+
+***  Funcionamiento
+- *Paso 1: Entrada*: Una imagen de entrada se pasa a través de la red
+  convolucional.
+- *Paso 2: División de Cuadrícula*: La imagen se divide en una
+  cuadrícula \( S \times S \).
+- *Paso 3: Predicciones de la Red*: La red predice \( B \) cajas
+  delimitadoras y \( C \) probabilidades de clase para cada celda de
+  la cuadrícula.
+- *Paso 4: Filtrado de Cajas*: Se aplican técnicas como el umbral de
+  confianza y la supresión de no-máximos (Non-Maximum Suppression,
+  NMS) para filtrar las cajas delimitadoras y eliminar las
+  redundantes.
+- *Paso 5: Salida*: Las cajas delimitadoras finales con las
+  probabilidades de clase correspondientes se devuelven como
+  resultado.
+
+*** Ventajas
+- *Velocidad*: YOLO es extremadamente rápido porque procesa la imagen
+  completa en una sola pasada de la red, lo que permite la detección
+  en tiempo real.
+- *Contexto Global*: Al considerar la imagen completa, YOLO puede
+  capturar el contexto global, lo que reduce los errores de detección
+  en comparación con los enfoques que solo consideran regiones
+  locales.
+- *Simpleza*: El enfoque unificado simplifica el proceso de detección y
+  lo hace más fácil de implementar y entrenar.
+
+*** Limitaciones
+- *Detección de Objetos Pequeños*: Puede tener dificultades para
+  detectar objetos muy pequeños debido a la división de la imagen en
+  una cuadrícula de tamaño fijo.
+- *Precisión*: Aunque es muy rápida, la precisión de YOLO puede ser
+  inferior en comparación con métodos más complejos como Faster R-CNN
+  en ciertos escenarios.
+- *Trade-off Velocidad-Precisión*: Existe un balance entre la velocidad
+  y la precisión; versiones más rápidas de YOLO pueden sacrificar algo
+  de precisión por un aumento en la velocidad.
+
+*** Evolución
+- *YOLOv2, YOLOv3, YOLOv4, y YOLOv5*: Cada nueva versión de YOLO ha
+  introducido mejoras en la arquitectura y el entrenamiento,
+  aumentando la precisión y manteniendo o mejorando la velocidad.
+- *YOLOv4 y YOLOv5*: Incorporan técnicas avanzadas como mecanismos de
+  atención, mejores métodos de anclaje de cajas, y técnicas de
+  entrenamiento más robustas, resultando en mejoras significativas en
+  la detección de objetos.
+
+YOLO es un algoritmo de detección de objetos eficiente y rápido que
+utiliza un enfoque unificado para predecir cajas delimitadoras y
+probabilidades de clase en una sola pasada de la red. Es especialmente
+útil para aplicaciones en tiempo real donde la velocidad es crítica.
+
+** Ejemplo YOLO
+
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+
+# Rutas de los archivos de configuración y pesos del modelo YOLOv3
+config = "/home/likcos/yolo/yolov3.cfg"
+weights = "/home/likcos/yolo/yolov3.weights"
+# Cargar los nombres de las etiquetas desde el archivo coco.names
+LABELS = open("/home/likcos/yolo/coco.names").read().split("\n")
+# Generar colores aleatorios para cada etiqueta
+colors = np.random.randint(0, 255, size=(len(LABELS), 3), dtype="uint8")
+
+# Cargar la red YOLO desde los archivos de configuración y pesos
+net = cv2.dnn.readNetFromDarknet(config, weights)
+
+# Leer la imagen desde el archivo especificado
+image = cv2.imread("/home/likcos/yolo/horse.jpg")
+height, width, _ = image.shape
+
+# Crear un blob a partir de la imagen (preprocesamiento)
+blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (416, 416), swapRB=True, crop=False)
+
+# Obtener los nombres de las capas de la red
+ln = net.getLayerNames()
+
+# Obtener solo los nombres de las capas de salida
+ln = [ln[i - 1] for i in net.getUnconnectedOutLayers()]
+
+# Configurar la entrada de la red con el blob
+net.setInput(blob)
+# Realizar la pasada hacia adelante (forward pass) y obtener las salidas
+outputs = net.forward(ln)
+
+# Inicializar listas para las cajas delimitadoras, confidencias y IDs de clase
+boxes = []
+confidences = []
+classIDs = []
+
+# Procesar cada una de las salidas de la red
+for output in outputs:
+    for detection in output:
+        # Obtener las puntuaciones de todas las clases
+        scores = detection[5:]
+        # Obtener el ID de la clase con la mayor puntuación
+        classID = np.argmax(scores)
+        # Obtener la confianza (probabilidad) de la clase seleccionada
+        confidence = scores[classID]
+
+        # Filtrar detecciones con una confianza baja
+        if confidence > 0.5:
+            # Escalar las coordenadas de la caja delimitadora a las dimensiones de la imagen original
+            box = detection[:4] * np.array([width, height, width, height])
+            (x_center, y_center, w, h) = box.astype("int")
+            x = int(x_center - (w / 2))
+            y = int(y_center - (h / 2))
+
+            # Agregar la caja, confianza e ID de clase a las listas respectivas
+            boxes.append([x, y, w, h])
+            confidences.append(float(confidence))
+            classIDs.append(classID)
+
+# Aplicar la supresión de no-máximos para eliminar las cajas redundantes
+idx = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.5)
+print("idx:", idx)
+
+# Dibujar las cajas finales en la imagen
+if len(idx) > 0:
+    for i in idx:
+        (x, y) = (boxes[i][0], boxes[i][1])
+        (w, h) = (boxes[i][2], boxes[i][3])
+
+        # Seleccionar un color para la clase detectada
+        color = colors[classIDs[i]].tolist()
+        # Crear el texto con la etiqueta y la confianza
+        text = "{}: {:.3f}".format(LABELS[classIDs[i]], confidences[i])
+        # Dibujar la caja delimitadora y poner el texto en la imagen
+        cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
+        cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
+# Mostrar la imagen resultante
+cv2.imshow("Image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+** MobileNet SSD
+
+MobileNet SSD (Single Shot MultiBox Detector) es una arquitectura de
+red neuronal profunda utilizada para la detección de objetos en tiempo
+real. Combina la eficiencia y velocidad de MobileNet con la precisión
+y versatilidad de SSD, lo que la hace ideal para aplicaciones móviles
+y embebidas. Aquí tienes una descripción más detallada:
+
+***  MobileNet
+- *Arquitectura*: MobileNet es una red neuronal convolucional profunda
+  que se caracteriza por su eficiencia computacional y tamaño
+  reducido. Utiliza convoluciones separables en profundidad (depthwise
+  separable convolutions), lo que reduce significativamente el número
+  de parámetros y operaciones de cálculo.
+- *Características*:
+  - *Convoluciones separables en profundidad*: Descompone la convolución
+    estándar en dos operaciones más simples y menos costosas: una
+    convolución en profundidad (depthwise convolution) y una
+    convolución puntual (pointwise convolution).
+  - *Bloques de construcción*: Cada bloque consta de una convolución en
+    profundidad seguida de una convolución puntual y una función de
+    activación no lineal.
+  - *Tamaño reducido*: Diseñada para ser eficiente en dispositivos con
+    recursos limitados, como teléfonos móviles y dispositivos IoT.
+
+***  SSD (Single Shot MultiBox Detector)
+- *Arquitectura*: SSD es un algoritmo de detección de objetos que
+  predice múltiples cajas delimitadoras (bounding boxes) y sus
+  probabilidades de clase en una sola pasada a través de la red (de
+  ahí el término "Single Shot").
+- *Características*:
+  - *Predicciones múltiples*: Realiza predicciones en múltiples escalas
+    desde varias capas de la red, lo que permite detectar objetos de
+    diferentes tamaños.
+  - *Mapas de características*: Utiliza mapas de características de
+    diferentes niveles de resolución para detectar objetos de
+    diferentes tamaños.
+  - *Cajas predeterminadas*: Utiliza un conjunto de cajas
+    predeterminadas (default boxes) con diferentes proporciones y
+    escalas en cada mapa de características.
+
+***  MobileNet SSD
+- *Combina lo mejor de ambos mundos*: Integra la eficiencia y velocidad
+  de MobileNet con la precisión y capacidad de detección en tiempo
+  real de SSD.
+- *Aplicaciones*:
+  - *Dispositivos móviles*: Ideal para aplicaciones en teléfonos móviles
+    y tablets debido a su bajo requerimiento computacional.
+  - *IoT y sistemas embebidos*: Perfecta para sistemas embebidos y
+    dispositivos IoT donde los recursos de procesamiento son
+    limitados.
+  - *Drones y robótica*: Utilizada en drones y robots que requieren
+    capacidades de detección en tiempo real.
+
+***  Beneficios
+- *Eficiencia computacional*: Bajo consumo de energía y recursos,
+  permitiendo su implementación en dispositivos con limitaciones de
+  hardware.
+- *Detección en tiempo real*: Capacidad de procesar y detectar objetos
+  rápidamente, lo que es crucial para aplicaciones en tiempo real.
+- *Versatilidad*: Puede ser entrenada para detectar una amplia variedad
+  de objetos en diferentes entornos y condiciones.
+
+***  Limitaciones
+- *Precisión vs. otros modelos*: Aunque es eficiente, su precisión puede
+  ser menor en comparación con otros modelos más complejos y pesados.
+- *Detección de objetos pequeños*: Puede tener dificultades para
+  detectar objetos muy pequeños debido a la reducción de resolución en
+  capas profundas.
+
+MobileNet SSD es una arquitectura  eficiente para la
+detección de objetos en tiempo real, especialmente adecuada para
+dispositivos con recursos limitados.
+
+
 
 * Desafíos y Consideraciones Éticas
   - Desafíos Técnicos: Precisión, grandes conjuntos de datos, computación intensiva.
   - Cuestiones de Privacidad: Preocupaciones sobre reconocimiento facial y vigilancia.
   - Futuro de la Visión por Computadora: Impacto en la sociedad y desarrollo continuo.
+
+
+
 
 * Conclusión y Futuro de la Visión por Computadora
   - Resumen: Repaso de los puntos clave.
