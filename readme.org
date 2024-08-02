@@ -391,25 +391,25 @@ cv.destroyAllWindows()
  coordenadas $\hat{x} = x + t_x  \hat{y} = y + t_y$ les sumamos un valor
  $t_x$ p $t_y$ según corresponda. En coordenadas homogéneas queda como 
 
-$$
- \begin{pmatrix}
- \hat{x}&\\
- \hat{y}&\\
- 1
- \end{pmatrix}
- = 
- \begin{pmatrix}
- 1 & 0& t_x\\
- 0 & 1 & t_y&\\
- 0 & 0 & 1
- \end{pmatrix}
-\begin{pmatrix}
- x\\
- y&\\
- 1
- \end{pmatrix} 
-$$
 
+\[
+\begin{pmatrix}
+\hat{x} \\
+\hat{y} \\
+1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & t_x \\
+0 & 1 & t_y \\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+x \\
+y \\
+1
+\end{pmatrix}
+\]
 
 
  #+BEGIN_SRC python
