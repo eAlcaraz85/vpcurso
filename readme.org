@@ -82,10 +82,10 @@ precisos y eficientes para el análisis visual.
   - Lenguajes de Programación: Python, C++, C.
   - Bibliotecas y Frameworks: OpenCV, TensorFlow, PyTorch.
 
-**   Instalación Python Opencv
+*   Instalación Python Opencv
 
 
-*** Instalación python Opencv Windows
+** Instalación python Opencv Windows
 
 
 - *Paso 1: Instalar Python 3*
@@ -134,7 +134,7 @@ precisos y eficientes para el análisis visual.
 	
 
 
-*** Instalación python Opencv Mac 
+** Instalación python Opencv Mac 
 
 Instalar Python 3 y OpenCV en macOS es un proceso bastante sencillo. A
 continuación, se muestran los pasos para realizar esta instalación.
@@ -188,7 +188,7 @@ macOS viene con Python 2.7 instalado por defecto, pero se recomienda usar Python
 
 
 
-*** Instalación python Opencv Linux
+** Instalación python Opencv Linux
 
 Instalar Python 3 y OpenCV en un sistema Linux generalmente es un
 proceso sencillo. A continuación, te presento los pasos genéricos para
@@ -281,9 +281,9 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
   - Vehículos Autónomos: Navegación y detección de obstáculos.
   - Análisis Médico de Imágenes: Aplicación en diagnóstico y análisis.
 
-** Programación 
+* Programación 
 
-*** Cargar imagen 
+** Cargar imagen 
    #+BEGIN_SRC python :results output
 import cv2 as cv 
 img = cv.imread('/home/likcos/Imágenes/tr.png', 0)
@@ -292,7 +292,7 @@ cv.waitKey(0)
 cv.destroyAllWindows()
    #+END_SRC
    #+RESULTS:
-*** Modelos de Color
+** Modelos de Color
 
    #+BEGIN_SRC python :results output
 import cv2 as cv 
@@ -306,7 +306,7 @@ cv.destroyAllWindows()
 
 #+RESULTS:
 
-*** Filtros de convolución 
+** Filtros de convolución 
 #+BEGIN_SRC python
 import cv2 as cv 
 import numpy as np 
@@ -330,7 +330,7 @@ cv.destroyAllWindows()
 
 
 
-*** Canales de color
+** Canales de color
 #+BEGIN_SRC python :results output
 import cv2 as cv
 import numpy as np 
@@ -356,7 +356,7 @@ cv.destroyAllWindows()
 #+RESULTS:
 : 635
 
-*** Segmentación de color 
+** Segmentación de color 
 
 #+BEGIN_SRC python
 import cv2 as cv
@@ -378,24 +378,31 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-*** Transformaciones Geométricas 
 
-**** Transformaciones Afín 
+** Transformaciones Geométricas 
+
+*** Transformaciones Afín 
   La transformación afín es una transformación geométrica que esta
   constituida por translación, escalamiento, rotación y
   cizallamiento. Cada una de estas Transformaciones es una
   Transformación afín. 
   
-**** Traslación 
+*** Traslación 
  Una translación la podemos hacer simplemente asumiendo que nuevas
- coordenadas $\hat{x} = x + t_x  \hat{y} = y + t_y$ les sumamos un valor
+ coordenadas $\hat{x} = x + t_x$  $\hat{y} = y + t_y$ les sumamos un valor
  $t_x$ p $t_y$ según corresponda. En coordenadas homogéneas queda como 
 
 
 $$
 \begin{pmatrix}
-\hat{x} \\
-\hat{y} \\
+x \\
+y \\
+1
+\end{pmatrix}
+
+\begin{pmatrix}
+\hat{x}\\ 
+\hat{y}\\
 1
 \end{pmatrix}
 =
@@ -432,7 +439,7 @@ cv.destroyAllWindows()
 #+END_SRC
 
 
-**** Escalamiento 
+*** Escalamiento 
 	 El escalamiento puede entenderse como hacer una figura geométrica
 	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
 	 podemos representar  como $\hat{x} = x,  s_x$ y en y como
@@ -481,7 +488,7 @@ cv.destroyAllWindows()
  : 441 524
  : Valores (441, 524)
 
-**** Rotación 
+*** Rotación 
 
  Considerando el caso de un punto que rota respecto a un punto
  fijo. Las coordenadas x y y, en forma polar las podemos obtener como $x=r$ 
@@ -562,7 +569,7 @@ cv.destroyAllWindows()
 
  #+RESULTS:
 
-**** Cizallamiento 
+*** Cizallamiento 
 
    El cizallamiento es una transformación dada por la matriz, donde $c_x$
    es el ángulo de cizallamiento respecto al eje x
