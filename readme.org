@@ -393,7 +393,7 @@ cv.destroyAllWindows()
 
 $$
  \begin{pmatrix}
- \hat{x}\\
+ \hat{x}&\\
  \hat{y}&\\
  1
  \end{pmatrix}
@@ -435,12 +435,12 @@ cv.destroyAllWindows()
 **** Escalamiento 
 	 El escalamiento puede entenderse como hacer una figura geométrica
 	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
-	 podemos representar por como $ \hat{x} = x,  s_x $ y en y como
+	 podemos representar  como $\hat{x} = x,  s_x$ y en y como
 	 $\hat{y} = y,  s_y$ En coordenada homogéneas se puede expresar como 
 
 $$
  \begin{pmatrix}
- \hat{xs}\\
+ \hat{x}\\
  \hat{y}&\\
  1
  \end{pmatrix}
