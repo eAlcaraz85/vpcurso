@@ -14,8 +14,6 @@ información de aquello que se ha visto.
 Los sistemas se componen de una cámara fotográfica o de vídeo y un
 software especializado que identifica y clasifica objetos. Son capaces
 de analizar imágenes (fotos, imágenes, vídeos, códigos de barras), así
-
-* 
 como caras y emociones.
 
 Para enseñar a una computadora a *ver* , se utilizan tecnologías de
@@ -284,6 +282,7 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
   - Análisis Médico de Imágenes: Aplicación en diagnóstico y análisis.
 
 ** Programación 
+
 *** Cargar imagen 
    #+BEGIN_SRC python :results output
 import cv2 as cv 
@@ -414,6 +413,7 @@ $$
 
 
  #+BEGIN_SRC python
+
 import cv2 as cv
 import numpy as np
 img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
@@ -429,18 +429,15 @@ cv.imshow('imagen2', img2)
 cv.waitKey(0)
 cv.destroyAllWindows()
 
- #+END_SRC
-  
-
- #+RESULTS:
- : None
+#+END_SRC
 
 
 **** Escalamiento 
 	 El escalamiento puede entenderse como hacer una figura geométrica
 	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
-	 podemos representar por como $\hat{x} = x$, $s_x$ y en y como
-	 $\hat{y} = y$,  $s_y$ En coordenada homogéneas se puede expresar como 
+	 podemos representar por como $ \hat{x} = x,  s_x $ y en y como
+	 $\hat{y} = y,  s_y$ En coordenada homogéneas se puede expresar como 
+
 $$
  \begin{pmatrix}
  \hat{xs}\\
@@ -1650,11 +1647,10 @@ complejas.
 [[file:img/conv.png]]
 
 
-
 ** YOLO
 YOLO (You Only Look Once) es un algoritmo de detección de objetos en
 tiempo real que se ha destacado por su velocidad y precisión. Fue
-desarrollado por Joseph Redmon y sus colaboradores. 
+desarrollado por Joseph Redmon y  colaboradores. 
 
 ***  YOLO (You Only Look Once)
 
@@ -1684,9 +1680,9 @@ desarrollado por Joseph Redmon y sus colaboradores.
 - *Paso 1: Entrada*: Una imagen de entrada se pasa a través de la red
   convolucional.
 - *Paso 2: División de Cuadrícula*: La imagen se divide en una
-  cuadrícula \( S \times S \).
-- *Paso 3: Predicciones de la Red*: La red predice \( B \) cajas
-  delimitadoras y \( C \) probabilidades de clase para cada celda de
+  cuadrícula  $\times $.
+- *Paso 3: Predicciones de la Red*: La red predice $( B )$ cajas
+  delimitadoras y $ C $ probabilidades de clase para cada celda de
   la cuadrícula.
 - *Paso 4: Filtrado de Cajas*: Se aplican técnicas como el umbral de
   confianza y la supresión de no-máximos (Non-Maximum Suppression,
@@ -1819,6 +1815,8 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 #+END_SRC
+
+#+RESULTS:
 
 ** MobileNet SSD
 
