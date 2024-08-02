@@ -381,24 +381,33 @@ cv.destroyAllWindows()
 
 ** Transformaciones Geométricas 
 
-*** Transformaciones Afín 
-  La transformación afín es una transformación geométrica que esta
-  constituida por translación, escalamiento, rotación y
-  cizallamiento. Cada una de estas Transformaciones es una
-  Transformación afín. 
-  
-*** Traslación 
- Una translación la podemos hacer simplemente asumiendo que nuevas
- coordenadas $\hat{x} = x + t_x$  $\hat{y} = y + t_y$ les sumamos un valor
- $t_x$ p $t_y$ según corresponda. En coordenadas homogéneas queda como 
+En el procesamiento de imágenes y visión por computadora, las
+transformaciones afines son operaciones fundamentales que permiten
+manipular la geometría de las imágenes. Estas transformaciones
+incluyen translación, escalamiento, rotación y cizallamiento, y son
+ampliamente utilizadas para tareas como la alineación de imágenes, la
+corrección de distorsiones y la creación de efectos visuales.
 
+Una transformación afín es una función geométrica que preserva puntos,
+líneas rectas y planos. En el contexto de imágenes, esto significa que
+las transformaciones afines mantienen la colinealidad y la proporción
+de las distancias entre los puntos. Matemáticamente, una
+transformación afín se representa mediante una matriz $3×3$ en
+coordenadas homogéneas.
+
+
+
+
+*** Traslación
+La traslación desplaza cada punto de la imagen una cierta distancia en
+las direcciones 𝑥 x y 𝑦 y. Es una de las transformaciones más simples
+y se utiliza comúnmente para mover una imagen de un lugar a otro sin
+cambiar su forma o tamaño.  Una translación la podemos hacer
+simplemente asumiendo que nuevas coordenadas $\hat{x} = x + t_x$
+$\hat{y} = y + t_y$ les sumamos un valor $t_x$ p $t_y$ según
+corresponda. La fórmula en coordenadas homogéneas es:
 
 $$
-\begin{pmatrix}
-x \\
-y \\
-1
-\end{pmatrix}
 \begin{pmatrix}
 \hat{x}\\ 
 \hat{y}\\
@@ -418,8 +427,7 @@ y \\
 $$
 
 
- #+BEGIN_SRC python
-
+#+BEGIN_SRC python
 import cv2 as cv
 import numpy as np
 img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
