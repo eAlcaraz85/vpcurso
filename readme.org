@@ -392,7 +392,7 @@ cv.destroyAllWindows()
  $t_x$ p $t_y$ según corresponda. En coordenadas homogéneas queda como 
 
 
-\[
+$$
 \begin{pmatrix}
 \hat{x} \\
 \hat{y} \\
@@ -409,7 +409,7 @@ x \\
 y \\
 1
 \end{pmatrix}
-\]
+$$
 
 
  #+BEGIN_SRC python
