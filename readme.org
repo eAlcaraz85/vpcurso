@@ -399,7 +399,6 @@ x \\
 y \\
 1
 \end{pmatrix}
-
 \begin{pmatrix}
 \hat{x}\\ 
 \hat{y}\\
@@ -442,8 +441,8 @@ cv.destroyAllWindows()
 *** Escalamiento 
 	 El escalamiento puede entenderse como hacer una figura geométrica
 	 cambie su tamaño o cambie su escala. Un escalamiento en x lo
-	 podemos representar  como $\hat{x} = x,  s_x$ y en y como
-	 $\hat{y} = y,  s_y$ En coordenada homogéneas se puede expresar como 
+	 podemos representar  como $\hat{x} = x$,  $s_x$ y en y como
+	 $\hat{y} = y$,  $s_y$ En coordenada homogéneas se puede expresar como 
 
 $$
  \begin{pmatrix}
@@ -457,7 +456,6 @@ $$
  0 & s_y & 0&\\
  0 & 0 & 1
  \end{pmatrix}
- 
 \begin{pmatrix}
  x\\
  y&\\
@@ -496,7 +494,6 @@ cv.destroyAllWindows()
  entonces podemos representar esta rotación en forma polar. 
  
 $$
- \begin{equation}
  \begin{pmatrix}
  \hat{x}\\
  \hat{y}&
@@ -511,10 +508,9 @@ $$
  r cos(\alpha + \theta) - r sin(\alpha) sin(\theta) \\
  r sen(\alpha + \theta) + r sin(\alpha) con(\theta)
  \end{pmatrix}
- \end{equation}
-
-
- \begin{equation}
+$$
+ 
+$$
  \begin{pmatrix}
  \hat{x}\\
  \hat{y}&
@@ -524,10 +520,6 @@ $$
  x cos(\theta) - y sin(\theta) \\
  x sen(\theta) + y cos(\theta)
  \end{pmatrix}
- \end{equation}
-
-
- \begin{equation}
  \begin{pmatrix}
  \hat{x}\\
  \hat{y}&
@@ -541,12 +533,7 @@ $$
  x \\
  y 
  \end{pmatrix}
-
- \end{equation}
-
- \begin{equation}
  xcos(\theta) - ysin(\theta), xsen(\theta) + ycos(\theta)
- \end{equation}
 $$
  
 #+BEGIN_SRC python :results output
