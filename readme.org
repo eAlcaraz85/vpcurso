@@ -1,6 +1,8 @@
+
 #+TITLE: Visión por Computadora 
 #+author: Eduardo Alcaraz
 #+email: eduardo.ac@morelia.tecnm.mx
+
 
 * ¿Que es la visión por computadora?
 [[https://www.dropbox.com/scl/fo/54jqpwdzfnm6l0mdc6hur/h?rlkey=i85skh89ll342evwedk0t3x7r&st=kxmgh8vh&dl=0][Libros]]
@@ -23,8 +25,8 @@ identificar aún más objetos similares.
 
 
 * Visión por computadora
-#startup:nlineimages
-#+ATTR_LATEX: :width 0.2\textwidth
+#+startup:nlineimages
+#+ATTR_LATEX: :width 0.5\textwidth
 [[file:img/im1.jpg]]
 
 * Aspectos Claves de la visión por computadora 
@@ -82,7 +84,7 @@ precisos y eficientes para el análisis visual.
   - Lenguajes de Programación: Python, C++, C.
   - Bibliotecas y Frameworks: OpenCV, TensorFlow, PyTorch.
 
-*   Instalación Python Opencv
+* Instalación Python Opencv
 
 
 ** Instalación python Opencv Windows
@@ -283,10 +285,11 @@ Para verificar que OpenCV está correctamente instalado, puedes hacer lo siguien
 
 * Programación 
 
-** Cargar imagen 
+** Cargar imagen
+
    #+BEGIN_SRC python :results output
 import cv2 as cv 
-img = cv.imread('/home/likcos/Imágenes/tr.png', 0)
+img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
 cv.imshow('ejemplo', img)
 cv.waitKey(0)
 cv.destroyAllWindows()
@@ -294,17 +297,69 @@ cv.destroyAllWindows()
    #+RESULTS:
 ** Modelos de Color
 
-   #+BEGIN_SRC python :results output
+#+BEGIN_SRC python :results output :tangle src/canales.py 
 import cv2 as cv 
 img = cv.imread('/home/likcos/Imágenes/tr.png', 1)
-imgGris = cv.cvtColor(img, cv.COLOR_BGR2GRAY)        
+imgHSV = cv.cvtColor(img, cv.COLOR_BGR2RGB)        
 cv.imshow('ejemplo', img)
-cv.imshow('ejemploGris', imgGris)
+cv.imshow('ejemploGris', imgHSV)
 cv.waitKey(0)
 cv.destroyAllWindows()
    #+END_SRC
 
 #+RESULTS:
+
+** Canales de color
+#+BEGIN_SRC python :results output
+import cv2 as cv
+import numpy as np 
+img = cv.imread('img/tr.png')
+img2 = np.zeros(img.shape[:2], dtype=np.uint8)
+#print(img.shape[1])
+b,g,r =cv.split(img)
+rb=cv.merge([g,b,r])
+rg=cv.merge([img2,g,img2])
+rr=cv.merge([img2,img2,r])
+cv.imshow('img', img)
+cv.imshow('b',b)
+cv.imshow('g',g)
+cv.imshow('r',r)
+cv.imshow('rb',rb)
+cv.imshow('gr',rg)
+cv.imshow('rr',rr)
+cv.waitKey(0)
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: 635
+
+** Segmentación de color 
+
+#+BEGIN_SRC python
+import cv2 as cv
+img = cv.imread('img/mango.jpg',1)
+imghsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+#imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+ubb=(24,100, 100)
+uba=(32, 255,255)
+#ubb1=(28,100, 100)
+#uba1=(32, 255,255)
+mask = cv.inRange(imghsv, ubb, uba)
+#mask2 = cv.inRange(imghsv, ubb1, uba1)
+#mask = mask1 + mask2
+res = cv.bitwise_and(img, img, mask=mask)
+cv.imshow('img', img)
+cv.imshow('Resultado',res )
+cv.imshow('mask', mask)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
 
 ** Filtros de convolución 
 #+BEGIN_SRC python
@@ -330,55 +385,6 @@ cv.destroyAllWindows()
 
 
 
-** Canales de color
-#+BEGIN_SRC python :results output
-import cv2 as cv
-import numpy as np 
-img = cv.imread('img/tr.png')
-img2 = np.zeros(img.shape[:2], dtype=np.uint8)
-print(img.shape[1])
-b,g,r =cv.split(img)
-rb=cv.merge([b,img2,img2])
-rg=cv.merge([img2,g,img2])
-rr=cv.merge([img2,img2,r])
-
-cv.imshow('img', img)
-#cv.imshow('img2',img2)
-cv.imshow('b',rb)
-cv.imshow('g',rg)
-cv.imshow('r',rr)
-cv.waitKey(0)
-cv.destroyAllWindows()
-
-
-#+END_SRC
-
-#+RESULTS:
-: 635
-
-** Segmentación de color 
-
-#+BEGIN_SRC python
-import cv2 as cv
-img = cv.imread('img/tr.png',1)
-imghsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-ubb=(0,100, 100)
-uba=(20, 255,255)
-mask = cv.inRange(imghsv, ubb, uba)
-res = cv.bitwise_and(img, img, mask=mask)
-xcv.imshow('img', img)
-cv.imshow('Resultado',res )
-cv.imshow('mask', mask)
-cv.waitKey(0)
-cv.destroyAllWindows()
-
-#+END_SRC
-
-#+RESULTS:
-: None
-
-
 ** Transformaciones Geométricas 
 
 En el procesamiento de imágenes y visión por computadora, las
@@ -395,9 +401,6 @@ de las distancias entre los puntos. Matemáticamente, una
 transformación afín se representa mediante una matriz $3×3$ en
 coordenadas homogéneas.
 
-
-
-
 *** Traslación
 La traslación desplaza cada punto de la imagen una cierta distancia en
 las direcciones 𝑥 x y 𝑦 y. Es una de las transformaciones más simples
@@ -413,6 +416,8 @@ $$
 \hat{y}\\
 1
 \end{pmatrix}
+$$
+$$
 =
 \begin{pmatrix}
 1 & 0 & t_x \\
@@ -427,16 +432,16 @@ y \\
 $$
 
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :tangle src/traslacion.py
 import cv2 as cv
 import numpy as np
 img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
 h,w = img.shape[:2]
-img2 = np.zeros((h*2, w*2, 1) , dtype = "uint8")
+img2 = np.zeros((h*4, w*4, 1) , dtype = "uint8")
 print("Valores " + str(img.shape[:2]))
 for i in range(h):
     for j in range(w):
-        img2[int(i*0.5),int(j*0.5)]=img[i,j]
+        img2[int(3*(i+20)),int(j+10)]=img[i,j]
 
 cv.imshow('imagen', img)
 cv.imshow('imagen2', img2)
@@ -444,6 +449,9 @@ cv.waitKey(0)
 cv.destroyAllWindows()
 
 #+END_SRC
+
+#+RESULTS:
+: None
 
 
 *** Escalamiento 
@@ -471,17 +479,17 @@ $$
  \end{pmatrix}
 $$	
 
- #+BEGIN_SRC python :results output
+ #+BEGIN_SRC python :results output :tangle src/escalamiento.py
 import cv2 as cv
 import numpy as np
 img = cv.imread('/home/likcos/Imágenes/mo1.png',0)
 h,w = img.shape[:2]
 print(h, w)
-img2 = np.zeros((h*2, w*2) , dtype = "uint8")
+img2 = np.zeros((h*3, w*3) , dtype = "uint8")
 print("Valores " + str(img.shape[:2]))
 for i in range(h):
     for j in range(w):
-        img2[int(i*2),int(j*2)]=img[i,j]
+        img2[int(i*0.5),int(j*0.5)]=img[i,j]
 
 cv.imshow('imagen', img)
 cv.imshow('imagen2', img2)
@@ -544,7 +552,7 @@ $$
  xcos(\theta) - ysin(\theta), xsen(\theta) + ycos(\theta)
 $$
  
-#+BEGIN_SRC python :results output
+#+BEGIN_SRC python :results output :tangle src/rotacion.py
 import cv2 as cv
 import math
 import numpy as np 
@@ -554,8 +562,8 @@ h,w = img.shape[:2]
 img2 = np.zeros((h*3, w*3), dtype = "uint8")
 for i in range(h):
     for j in range(w):
-        img2[int(i*math.cos(math.radians(30))-j*math.sin(math.radians(30)))+200,
-             int(i*(math.sin(math.radians(30)))+j*math.cos(math.radians(30)))+50]=img[i,j]
+        img2[int(i*math.cos(math.radians(30))-j*math.sin(math.radians(30))),
+             int(i*(math.sin(math.radians(30)))+j*math.cos(math.radians(30)))]=img[i,j]
 cv.imshow('imagen1', img)
 cv.imshow('imagen2', img2)
 cv.waitKey(0)
